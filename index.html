@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flashcard Học Từ Vựng</title>
+  <style>
+    :root {
+  --main-color: #4f46e5;
+  --accent: #e0e7ff;
+  --bg: #f9fafb;
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  color: var(--main-color);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+select, button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+button:hover {
+  background: var(--accent);
+}
+
+.card-container {
+  perspective: 1000px;
+  margin: 20px 0;
+}
+
+.card {
+  width: 320px;
+  height: 200px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card .front, .card .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.6s;
+}
+
+.card .front {
+  transform: rotateY(0deg);
+  background: white;
+}
+
+.card .back {
+  transform: rotateY(180deg);
+  background: var(--accent);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+#quizArea {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#quizInput {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 250px;
+  max-width: 90vw;
+}
+
+#feedback {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#summary {
+  margin-top: 8px;
+  color: green;
+}
+
+#quizArea button {
+  margin-top: 10px;
+  font-size: 16px;
+  background-color: var(--main-color);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  width: 250px;
+  max-width: 90vw;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: background 0.3s ease;
+}
+
+#quizArea button:hover {
+  background-color: #3730a3;
+}
+
+/* ✅ Responsive styles */
+  @media (max-width: 500px) {
+  body {
+    padding: 16px 10px;
+    background: #f9fafb;
+  }
+
+    .top-bar, .controls {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    select, button {
+      width: 100%;
+      max-width: 100%;
+      font-size: 15px;
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .card-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 95vw;
+      height: 180px;
+      font-size: 20px;
+      text-align: center;
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .card .front, .card .back {
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 20px;
+    }
+
+    #quizInput {
+      width: 100%;
+      max-width: 95vw;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+
+    #quizArea button {
+      width: 100%;
+      max-width: 95vw;
+      margin-top: 12px;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 10px;
+      background-color: #4f46e5;
+      color: white;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    #feedback {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    #summary {
+      font-size: 14px;
+      color: green;
+      margin-top: 5px;
+    }
+  }
+
+  </style>
+
+</head>
+<body>
+
+  <h2>📘 Flashcard Từ Vựng Nhật - Việt</h2>
+
+  <div class="top-bar">
+    <select id="lesson">
+      <option value="lesson1">Bài 1</option>
+      <option value="lesson2">Bài 2</option>
+      <option value="lesson3">Bài 3</option>
+      <option value="lesson3">Bài 4</option>
+      <option value="lesson3">Bài 5</option>
+      <option value="lesson3">Bài 6</option>
+    </select>
+
+    <select id="direction">
+      <option value="jp-vn">Nhật → Việt</option>
+      <option value="vn-jp">Việt → Nhật</option>
+    </select>
+
+    <!-- <button onclick="toggleMode()" id="modeToggleBtn">
+      🔄 <span>Chế độ:</span> <strong id="modeLabel">Học từ</strong>
+    </button> -->
+  </div>
+
+  <div class="card-container" onclick="flipCard()">
+    <div class="card" id="card">
+      <div class="front" id="frontText">Bấm để xem nghĩa</div>
+      <div class="back" id="backText">...</div>
+    </div>
+  </div>
+
+  <div id="quizArea" style="display: none;">
+    <input type="text" id="quizInput" placeholder="Nhập nghĩa...">
+    <br><br>
+    <button onclick="checkAnswer()" style="width: 100%;">Kiểm tra</button>
+    <div id="feedback"></div>
+    <div id="summary"></div>
+  </div>
+
+  <div class="controls">
+    <button onclick="prevCard()">⬅ Trước</button>
+    <button onclick="nextCard()">Tiếp ➡</button>
+  </div>
+
+  <script>
+    const lessons = {
+      "lesson1": [
+        { "jp": "watashi", "vn": "tôi" },
+        { "jp": "anata", "vn": "bạn" },
+        { "jp": "anohito", "vn": "người kia, người đó" },
+        { "jp": "anokata", "vn": "vị kia, vị đó (cách nói lịch sự của anohito)" },
+        { "jp": "~san", "vn": "thêm vào sau tên người - VD: Dũng san" },
+        { "jp": "~chan", "vn": "thêm vào sau tên của bé gái, 1 cô gái dễ thương" },
+        { "jp": "~jin", "vn": "người (nước) - tên nước + jin" },
+        { "jp": "sensei", "vn": "thầy/cô" },
+        { "jp": "kyoushi", "vn": "giáo viên" },
+        { "jp": "gakusei", "vn": "học sinh, sinh viên" },
+        { "jp": "kaishain", "vn": "nhân viên công ty" },
+        { "jp": "shain", "vn": "nhân viên công ty ~ - tên công ty + no + shain - VD: KS no shain" },
+        { "jp": "ginkouin", "vn": "nhân viên hàng" },
+        { "jp": "isha", "vn": "bác sĩ" },
+        { "jp": "kenkyusha", "vn": "nhà nghiên cứu" },
+        { "jp": "daigaku", "vn": "đại học" },
+        { "jp": "byouin", "vn": "bệnh viện" },
+        { "jp": "dare", "vn": "ai" },
+        { "jp": "donata", "vn": "vị nào (cách nói lịch sự của dare)" },
+        { "jp": "~sai", "vn": "~tuổi" },
+        { "jp": "nansai", "vn": "mấy tuổi? bao nhiêu tuổi?" },
+        { "jp": "oikutsu", "vn": "bao nhiêu tuổi?" },
+        { "jp": "hai", "vn": "vâng, dạ" },
+        { "jp": "iie", "vn": "không" },
+        { "jp": "hajimemashite", "vn": "rất hân hạnh được gặp bạn" },
+        { "jp": "~karakimashita", "vn": "đến từ ~ - tên nước + karakimasta" },
+        { "jp": "douzo yoroshiku onegaishimasu", "vn": "rất mong được nhận sự giúp đỡ từ bạn" },
+        { "jp": "shitsureidesuga", "vn": "xin lỗi, …" },
+        { "jp": "onamaeha", "vn": "tên bạn là gì?" },
+        { "jp": "kochiraha~sandesu", "vn": "đây là … - kochiraha + tên người + sandesu" },
+        { "jp": "sakuradaigaku", "vn": "đại học sakura" },
+        { "jp": "koubebyouin", "vn": "bệnh viện koube" }
+      ],
+      lesson2: [
+        { "jp": "kore", "vn": "cái này" },
+        { "jp": "sore", "vn": "cái đó" },
+        { "jp": "are", "vn": "cái kia" },
+        { "jp": "kono~", "vn": "~ này - VD: kono + tên đồ vật" },
+        { "jp": "sono~", "vn": "đó" },
+        { "jp": "ano~", "vn": "kia" },
+        { "jp": "hon", "vn": "sách" },
+        { "jp": "jisho", "vn": "từ điển" },
+        { "jp": "zasshi", "vn": "tạp chí" },
+        { "jp": "shinbun", "vn": "báo" },
+        { "jp": "no-to", "vn": "vở" },
+        { "jp": "techou", "vn": "sổ tay" },
+        { "jp": "meishi", "vn": "danh thiếp" },
+        { "jp": "ka-do", "vn": "thẻ, cạc" },
+        { "jp": "enpitsu", "vn": "bút chì" },
+        { "jp": "bo-rupen", "vn": "bút bi" },
+        { "jp": "sha-pupenshiru", "vn": "bút chì bấm" },
+        { "jp": "kagi", "vn": "chìa khóa" },
+        { "jp": "tokei", "vn": "đồng hồ" },
+        { "jp": "kasa", "vn": "dù" },
+        { "jp": "kaban", "vn": "cặp sách" },
+        { "jp": "CD", "vn": "đĩa CD" },
+        { "jp": "terebi", "vn": "tivi" },
+        { "jp": "rajio", "vn": "radio" },
+        { "jp": "kamera", "vn": "máy ảnh" },
+        { "jp": "konpyu-ta", "vn": "máy vi tính" },
+        { "jp": "kuruma", "vn": "xe ô tô" },
+        { "jp": "tsukue", "vn": "bàn" },
+        { "jp": "isu", "vn": "ghế" },
+        { "jp": "chokore-to", "vn": "socola" },
+        { "jp": "ko-hi", "vn": "cà phê" },
+        { "jp": "omiyage", "vn": "quà lưu niệm" },
+        { "jp": "eigo", "vn": "tiếng anh" },
+        { "jp": "nihongo", "vn": "tiếng nhật" },
+        { "jp": "go~", "vn": "tiếng ~ - tên nước + go" },
+        { "jp": "nan", "vn": "cái gì" },
+        { "jp": "sou", "vn": "đúng rồi" },
+        { "jp": "anou", "vn": "à, ở" },
+        { "jp": "etsu", "vn": "hả (phát âm là “ể”)" },
+        { "jp": "douzo", "vn": "xin mời" },
+        { "jp": "doumo arigatougozaimasu", "vn": "xin chân thành cảm ơn" },
+        { "jp": "soudesuka", "vn": "thế à" },
+        { "jp": "chigaimasu", "vn": "không phải" },
+        { "jp": "a", "vn": "ôi! (dùng khi nhận ra điều gì đó)" },
+        { "jp": "korekara osewaninarimasu", "vn": "từ nay tôi rất mong nhận được sự giúp đỡ của anh chị" },
+        { "jp": "kochirakoso douzo yoroshiku onegaishimasu", "vn": "chính tôi mới là người mong nhận được sự giúp đỡ ạ" }
+      ],
+      "lesson3": [
+        { "jp": "koko", "vn": "chỗ này" },
+        { "jp": "soko", "vn": "chỗ đó" },
+        { "jp": "asoko", "vn": "chỗ kia" },
+        { "jp": "doko", "vn": "chỗ nào?" },
+        { "jp": "kochira", "vn": "phía này (cách nói lịch sự của “koko”)" },
+        { "jp": "sochira", "vn": "phía đó" },
+        { "jp": "achira", "vn": "phía kia" },
+        { "jp": "dochira", "vn": "phía nào?" },
+        { "jp": "kyoushitsu", "vn": "lớp học" },
+        { "jp": "shokudou", "vn": "nhà ăn" },
+        { "jp": "jimusho", "vn": "văn phòng" },
+        { "jp": "kaigishitsu", "vn": "phòng họp" },
+        { "jp": "uketsuke", "vn": "quầy lễ tân" },
+        { "jp": "robi-", "vn": "hành lang" },
+        { "jp": "heya", "vn": "căn phòng" },
+        { "jp": "toire (otearai)", "vn": "nhà vệ sinh" },
+        { "jp": "kaidan", "vn": "cầu thang" },
+        { "jp": "erebe-ta-", "vn": "thang máy" },
+        { "jp": "esukare-ta", "vn": "thang cuốnkkk" },
+        { "jp": "jidouhanbaiki", "vn": "máy bán hàng tự động" },
+        { "jp": "denwa", "vn": "điện thoại" },
+        { "jp": "okuni", "vn": "nước, đất nước" },
+        { "jp": "kaisha", "vn": "công ty" },
+        { "jp": "uchi", "vn": "nhà" },
+        { "jp": "kutsu", "vn": "giầy" },
+        { "jp": "nekutaia", "vn": "cà vạt" },
+        { "jp": "wain", "vn": "rượu vang" },
+        { "jp": "uriba", "vn": "quầy bán (trong 1 cửa hàng bách hóa)" },
+        { "jp": "chika", "vn": "tầng hầm, dưới mặt đất" },
+        { "jp": "-kai(-gai)", "vn": "tầng thứ-" },
+        { "jp": "nangai", "vn": "tầng mấy?" },
+        { "jp": "~en", "vn": "-yên" },
+        { "jp": "ikura", "vn": "bao nhiêu tiền" },
+        { "jp": "hyaku", "vn": "trăm" },
+        { "jp": "sen", "vn": "nghìn" },
+        { "jp": "man", "vn": "10000" },
+        { "jp": "sumimasen", "vn": "xin lỗi" },
+        { "jp": "doumo", "vn": "cảm ơn" },
+        { "jp": "irasshaimase", "vn": "xin chào quý khách" },
+        { "jp": "[~wo] misetekudasai", "vn": "cho tôi xem với" },
+        { "jp": "ja", "vn": "thế thì, vậy thì" },
+        { "jp": "[~wo] kudasai", "vn": "cho tôi [~]" },
+        { "jp": "shinoosaka", "vn": "tên một nhà ga ở Osaka" }
+      ],
+      "lesson4": [
+        { "jp": "okimasu", "vn": "thức dậy" },
+        { "jp": "nemasu", "vn": "ngủ, đi ngủ" },
+        { "jp": "hatarakimasu", "vn": "làm việc" },
+        { "jp": "yasumimasu", "vn": "nghỉ ngơi" },
+        { "jp": "benkyoushimasu", "vn": "học" },
+        { "jp": "owarimasu", "vn": "kết thúc, hết, xong" },
+        { "jp": "depa-to", "vn": "bách hóa" },
+        { "jp": "ginkou", "vn": "ngân hàng" },
+        { "jp": "yuubinkyoku", "vn": "bưu điện" },
+        { "jp": "toshokan", "vn": "thư viện" },
+        { "jp": "bijutsukan", "vn": "bảo tàng mỹ thuật" },
+        { "jp": "ima", "vn": "bây giờ" },
+        { "jp": "~ji", "vn": "~giờ" },
+        { "jp": "~fun(-pun)", "vn": "~phút" },
+        { "jp": "han", "vn": "rưỡi, nữa" },
+        { "jp": "nanji", "vn": "mấy giờ" },
+        { "jp": "nanpun", "vn": "mấy phút" },
+        { "jp": "gozen", "vn": "sáng (trước 12 giờ trưa)" },
+        { "jp": "gogo", "vn": "chiều (sau 12 giờ trưa)" },
+        { "jp": "asa", "vn": "sáng, buổi sáng" },
+        { "jp": "hiru", "vn": "trưa, buổi trưa" },
+        { "jp": "ban(yoru)", "vn": "tối, buổi tối" },
+        { "jp": "ototoi", "vn": "hôm kia" },
+        { "jp": "kinou", "vn": "hôm qua" },
+        { "jp": "kyou", "vn": "hôm nay" },
+        { "jp": "ashita", "vn": "ngày mai" },
+        { "jp": "asatte", "vn": "ngày kia" },
+        { "jp": "kesa", "vn": "sáng nay" },
+        { "jp": "konban", "vn": "tối nay" },
+        { "jp": "yasumi", "vn": "nghỉ, nghỉ phép, ngày nghỉ" },
+        { "jp": "hiruyasumi", "vn": "nghỉ trưa" },
+        { "jp": "shiken", "vn": "thi, kỳ thi, kiểm tra" },
+        { "jp": "kaigi", "vn": "cuộc họp, hội nghị" },
+        { "jp": "eiga", "vn": "phim điện ảnh" },
+        { "jp": "maiasa", "vn": "hàng sáng, mỗi sáng" },
+        { "jp": "maiban", "vn": "hàng tối, mỗi tối" },
+        { "jp": "mainichi", "vn": "hàng ngày, mỗi ngày" },
+        { "jp": "getsuyoubi", "vn": "thứ hai" },
+        { "jp": "kayoubi", "vn": "thứ ba" },
+        { "jp": "suiyoubi", "vn": "thứ tư" },
+        { "jp": "mokuyoubi", "vn": "thứ năm" },
+        { "jp": "kinyoubi", "vn": "thứ sáu" },
+        { "jp": "doyoubi", "vn": "thứ bảy" },
+        { "jp": "nichiyoubi", "vn": "chủ nhật" },
+        { "jp": "nanyoubi", "vn": "thứ mấy" },
+        { "jp": "~kara", "vn": "~ từ" },
+        { "jp": "~made", "vn": "~ đến" },
+        { "jp": "~to", "vn": "~ và (dùng để nối 2 danh từ)" },
+        { "jp": "taihendesune", "vn": "anh/chị vất vả quá" },
+        { "jp": "bangou", "vn": "số (số điện thoại, số phòng)" },
+        { "jp": "nanban", "vn": "số bao nhiêu, số mấy" },
+        { "jp": "sochira", "vn": "ông/bà, phía ông/phía bà" }
+      ],
+      "lesson5": [
+        { "jp": "ikimasu", "vn": "đi" },
+        { "jp": "kimasu", "vn": "đến" },
+        { "jp": "kaerimasu", "vn": "về" },
+        { "jp": "gakkou", "vn": "trường học" },
+        { "jp": "su-pa-", "vn": "siêu thị" },
+        { "jp": "eki", "vn": "ga, nhà ga" },
+        { "jp": "hikouki", "vn": "máy bay" },
+        { "jp": "fune", "vn": "thuyền, tàu thủy" },
+        { "jp": "densha", "vn": "tàu điện" },
+        { "jp": "chikatetsu", "vn": "tàu điện ngầm" },
+        { "jp": "shinkansen", "vn": "tàu shinkansen (tàu điện siêu tốc của Nhật)" },
+        { "jp": "basu", "vn": "xe bus" },
+        { "jp": "takushi", "vn": "taxi" },
+        { "jp": "jitensha", "vn": "xe đạp" },
+        { "jp": "aruite", "vn": "đi bộ" },
+        { "jp": "hito", "vn": "người" },
+        { "jp": "tomodachi", "vn": "bạn, bạn bè" },
+        { "jp": "kare", "vn": "anh ấy, bạn trai" },
+        { "jp": "kanojo", "vn": "cô ấy, bạn gái" },
+        { "jp": "kazoku", "vn": "gia đình" },
+        { "jp": "hitoride", "vn": "một mình" },
+        { "jp": "senshuu", "vn": "tuần trước" },
+        { "jp": "konshuu", "vn": "tuần này" },
+        { "jp": "raishuu", "vn": "tuần sau" },
+        { "jp": "sengetsu", "vn": "tháng trước" },
+        { "jp": "kongetsu", "vn": "tháng này" },
+        { "jp": "raigetsu", "vn": "tháng sau" },
+        { "jp": "kyonen", "vn": "năm ngoái" },
+        { "jp": "kotoshi", "vn": "năm nay" },
+        { "jp": "rainen", "vn": "năm sau" },
+        { "jp": "nen", "vn": "năm" },
+        { "jp": "nannen", "vn": "mấy năm" },
+        { "jp": "~gatsu", "vn": "tháng ~" },
+        { "jp": "nangatsu", "vn": "tháng mấy" },
+        { "jp": "tsuitachi", "vn": "ngày 1, một ngày" },
+        { "jp": "futsuka", "vn": "ngày 2, 2 ngày" },
+        { "jp": "mikka", "vn": "ngày 3, 3 ngày" },
+        { "jp": "yokka", "vn": "ngày 4, 4 ngày" },
+        { "jp": "itsuka", "vn": "ngày 5, 5 ngày" },
+        { "jp": "muika", "vn": "ngày 6, 6 ngày" },
+        { "jp": "nanoka", "vn": "ngày 7, 7 ngày" },
+        { "jp": "youka", "vn": "ngày 8, 8 ngày" },
+        { "jp": "kokonoka", "vn": "ngày 9, 9 ngày" },
+        { "jp": "tooka", "vn": "ngày 10, 10 ngày" },
+        { "jp": "juuyokka", "vn": "ngày 14, 14 ngày" },
+        { "jp": "hatsuka", "vn": "ngày 20, 20 ngày" },
+        { "jp": "nijuuyokka", "vn": "ngày 24, 24 ngày" },
+        { "jp": "~nichi", "vn": "ngày ~, ~ ngày" },
+        { "jp": "nannichi", "vn": "ngày mấy, ngày bao nhiêu, mấy ngày, bao nhiêu ngày" },
+        { "jp": "itsu", "vn": "bao giờ, khi nào" },
+        { "jp": "tanjoubi", "vn": "sinh nhật" },
+        { "jp": "soudesune", "vn": "ừ, nhỉ" },
+        { "jp": "doumoarigatougozaimashita", "vn": "xin cảm ơn ông/bà" },
+        { "jp": "douitashimashite", "vn": "không có gì" },
+        { "jp": "—bansan", "vn": "sân ga số —" },
+        { "jp": "tsugino", "vn": "tiếp theo" },
+        { "jp": "futsuu", "vn": "tàu thường (dừng cả ở các ga lẻ)" },
+        { "jp": "kyuukou", "vn": "tàu tốc hành" },
+        { "jp": "tokkyuu", "vn": "tàu tốc hành đặc biệt" }
+      ],
+      "lesson6": [
+        { "jp": "tabemasu", "vn": "ăn" },
+        { "jp": "nomimasu", "vn": "uống" },
+        { "jp": "suimasu", "vn": "hút" },
+        { "jp": "tabakowosuimasu", "vn": "hút thuốc lá" },
+        { "jp": "mimasu", "vn": "xem, nhìn, trông" },
+        { "jp": "kikimasu", "vn": "nghe" },
+        { "jp": "yomimasu", "vn": "đọc" },
+        { "jp": "kakimasu", "vn": "viết, vẽ" },
+        { "jp": "kaimasu", "vn": "mua" },
+        { "jp": "torimasu[shashinwo~]", "vn": "chụp [ảnh]" },
+        { "jp": "shimasu", "vn": "làm" },
+        { "jp": "aimasu[tomodachini~]", "vn": "gặp [bạn]" },
+        { "jp": "gohan", "vn": "cơm, bữa ăn" },
+        { "jp": "asagohan", "vn": "cơm sáng, bữa sáng" },
+        { "jp": "hirugohan", "vn": "cơm trưa, bữa trưa" },
+        { "jp": "hangohan", "vn": "cơm tối, bữa tối" },
+        { "jp": "pan", "vn": "bánh mì" },
+        { "jp": "tamago", "vn": "trứng" },
+        { "jp": "niku", "vn": "thịt" },
+        { "jp": "sakana", "vn": "cá" },
+        { "jp": "yasai", "vn": "rau" },
+        { "jp": "kudamono", "vn": "hoa quả, trái cây" },
+        { "jp": "mizu", "vn": "nước" },
+        { "jp": "ocha", "vn": "trà" },
+        { "jp": "koucha", "vn": "trà đen" },
+        { "jp": "gyuunyuu", "vn": "sữa bò" },
+        { "jp": "ju-su", "vn": "nước hoa quả" },
+        { "jp": "bi-ru", "vn": "bia" },
+        { "jp": "[o]sake", "vn": "rượu, rượu sake" },
+        { "jp": "tabako", "vn": "thuốc lá" },
+        { "jp": "tegami", "vn": "thư" },
+        { "jp": "repo-to", "vn": "báo cáo" },
+        { "jp": "shashin", "vn": "ảnh" },
+        { "jp": "bideo", "vn": "video" },
+        { "jp": "mise", "vn": "cửa hàng, tiệm" },
+        { "jp": "niwa", "vn": "vườn" },
+        { "jp": "shukudai", "vn": "bài tập về nhà" },
+        { "jp": "shukudai woshimasu", "vn": "làm bài tập" },
+        { "jp": "tenisu", "vn": "quần vợt" },
+        { "jp": "tenisu woshimasu", "vn": "đánh quần vợt" },
+        { "jp": "sakka-", "vn": "đá banh" },
+        { "jp": "sakka woshimasu", "vn": "chơi đá banh" },
+        { "jp": "ohanami", "vn": "việc ngắm hoa anh đào" },
+        { "jp": "ohanami woshimasu", "vn": "ngắm hoa anh đào" },
+        { "jp": "nani", "vn": "cái gì" },
+        { "jp": "isshoni", "vn": "cùng, cùng nhau" },
+        { "jp": "chotto", "vn": "một chút" },
+        { "jp": "itsumo", "vn": "luôn luôn, lúc nào cũng" },
+        { "jp": "tokidoki", "vn": "thỉnh thoảng" },
+        { "jp": "sorekara", "vn": "sau đó, tiếp theo" },
+        { "jp": "ee", "vn": "vâng, được" },
+        { "jp": "iidesune", "vn": "được đấy nhỉ, hay quá" },
+        { "jp": "wakarimashita", "vn": "tôi hiểu rồi" },
+        { "jp": "nandesuka", "vn": "có gì đấy ạ? cái gì vậy?" },
+        { "jp": "ja mata[ashita]", "vn": "hẹn gặp lại [ngày mai]" }
+      ]
+    };
+
+    let currentLesson = "lesson1";
+    let vocab = shuffle(lessons[currentLesson]);
+    let index = 0;
+    let flipped = false;
+    let isQuizMode = false;
+    let correctCount = 0;
+    let totalCount = 0;
+
+    const card = document.getElementById("card");
+    const frontText = document.getElementById("frontText");
+    const backText = document.getElementById("backText");
+    const quizArea = document.getElementById("quizArea");
+    const quizInput = document.getElementById("quizInput");
+    const feedback = document.getElementById("feedback");
+    const summary = document.getElementById("summary");
+    const modeLabel = document.getElementById("modeLabel");
+    const direction = document.getElementById("direction");
+
+    function shuffle(array) {
+      let newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    function renderCard() {
+      flipped = false;
+      card.classList.remove("flipped");
+      feedback.innerText = "";
+      summary.innerText = "";
+      const dir = direction.value;
+      const word = vocab[index];
+      frontText.innerText = dir === "jp-vn" ? word.jp : word.vn;
+      backText.innerText = dir === "jp-vn" ? word.vn : word.jp;
+      quizInput.value = "";
+      quizInput.focus();
+    }
+
+    function flipCard() {
+      if (isQuizMode) return;
+      flipped = !flipped;
+      card.classList.toggle("flipped");
+    }
+
+    function nextCard() {
+      index = (index + 1) % vocab.length;
+      renderCard();
+    }
+
+    function prevCard() {
+      index = (index - 1 + vocab.length) % vocab.length;
+      renderCard();
+    }
+
+    function changeLesson() {
+      currentLesson = document.getElementById("lesson").value;
+      vocab = shuffle(lessons[currentLesson]);
+      index = 0;
+      renderCard();
+    }
+
+    function toggleMode() {
+      isQuizMode = !isQuizMode;
+      modeLabel.innerText = isQuizMode ? "Kiểm tra" : "Học từ";
+      quizArea.style.display = isQuizMode ? "block" : "none";
+      correctCount = 0;
+      totalCount = 0;
+      vocab = shuffle(lessons[currentLesson]);
+      index = 0;
+      renderCard();
+    }
+
+    function checkAnswer() {
+      const userInput = quizInput.value.trim().toLowerCase();
+      const dir = direction.value;
+      const word = vocab[index];
+      const correctAnswer = (dir === "jp-vn" ? word.vn : word.jp).toLowerCase();
+      totalCount++;
+
+      if (userInput === correctAnswer) {
+        feedback.innerText = "✅ Chính xác!";
+        feedback.style.color = "green";
+        correctCount++;
+      } else {
+        feedback.innerText = `❌ Sai! Đáp án đúng: ${correctAnswer}`;
+        feedback.style.color = "red";
+      }
+
+      summary.innerText = `Đúng ${correctCount}/${totalCount}`;
+    }
+
+    document.getElementById("lesson").addEventListener("change", changeLesson);
+    direction.addEventListener("change", renderCard);
+
+    renderCard();
+  </script>
+
+  <script type="module">
+  import { lessons } from './lessons.js';
+  // code xử lý ở đây
+</script>
+
+</body>
+</html>
