@@ -1,253 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flashcard Học Từ Vựng</title>
   <style>
     :root {
-  --main-color: #4f46e5;
-  --accent: #e0e7ff;
-  --bg: #f9fafb;
-}
-
-* {
-  box-sizing: border-box;
-  user-select: none;
-}
-
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--bg);
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-h2 {
-  color: var(--main-color);
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.top-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-  justify-content: center;
-}
-
-select, button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  background: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: background 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-button:hover {
-  background: var(--accent);
-}
-
-.card-container {
-  perspective: 1000px;
-  margin: 20px 0;
-}
-
-.card {
-  width: 320px;
-  height: 200px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  cursor: pointer;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
-}
-
-.card.flipped {
-  transform: rotateY(180deg);
-}
-
-.card .front, .card .back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  transition: transform 0.6s;
-}
-
-.card .front {
-  transform: rotateY(0deg);
-  background: white;
-}
-
-.card .back {
-  transform: rotateY(180deg);
-  background: var(--accent);
-}
-
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 15px;
-  flex-wrap: wrap;
-}
-
-#quizArea {
-  margin-top: 20px;
-  text-align: center;
-}
-
-#quizInput {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 250px;
-  max-width: 90vw;
-}
-
-#feedback {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-#summary {
-  margin-top: 8px;
-  color: green;
-}
-
-#quizArea button {
-  margin-top: 10px;
-  font-size: 16px;
-  background-color: var(--main-color);
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  width: 250px;
-  max-width: 90vw;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: background 0.3s ease;
-}
-
-#quizArea button:hover {
-  background-color: #3730a3;
-}
-
-/* ✅ Responsive styles */
-  @media (max-width: 500px) {
-  body {
-    padding: 16px 10px;
-    background: #f9fafb;
-  }
-
-    .top-bar, .controls {
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: center;
-      /* gap: 10px; */
-      width: 100%;
+      --main-color: #4f46e5;
+      --accent: #e0e7ff;
+      --bg: #f9fafb;
     }
 
-    select, button {
-      width: 100%;
-      max-width: 100%;
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      color: var(--main-color);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    select,
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
       font-size: 15px;
-      padding: 12px;
-      border-radius: 12px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    button:hover {
+      background: var(--accent);
     }
 
     .card-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
+      perspective: 1000px;
       margin: 20px 0;
     }
 
     .card {
-      width: 100%;
-      max-width: 95vw;
-      height: 180px;
-      font-size: 20px;
-      text-align: center;
-      border-radius: 20px;
-      padding: 20px;
+      width: 320px;
+      height: 200px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
     }
 
-    .card .front, .card .back {
-      padding: 15px;
-      font-size: 18px;
-      border-radius: 20px;
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card .front,
+    .card .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.6s;
+    }
+
+    .card .front {
+      transform: rotateY(0deg);
+      background: white;
+    }
+
+    .card .back {
+      transform: rotateY(180deg);
+      background: var(--accent);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    #quizArea {
+      margin-top: 20px;
+      text-align: center;
     }
 
     #quizInput {
-      width: 100%;
-      max-width: 95vw;
-      padding: 12px;
+      padding: 10px;
       font-size: 16px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      margin-top: 10px;
-    }
-
-    #quizArea button {
-      width: 100%;
-      max-width: 95vw;
-      margin-top: 12px;
-      font-size: 16px;
-      padding: 12px;
-      border-radius: 10px;
-      background-color: #4f46e5;
-      color: white;
-      font-weight: bold;
-    }
-
-    h2 {
-      font-size: 22px;
-      text-align: center;
-      margin-bottom: 15px;
+      width: 250px;
+      max-width: 90vw;
     }
 
     #feedback {
-      font-size: 15px;
+      font-weight: bold;
       margin-top: 10px;
     }
 
     #summary {
-      font-size: 14px;
+      margin-top: 8px;
       color: green;
-      margin-top: 5px;
     }
-  }
 
+    #quizArea button {
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: var(--main-color);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      width: 250px;
+      max-width: 90vw;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease;
+    }
+
+    #quizArea button:hover {
+      background-color: #3730a3;
+    }
+
+    /* ✅ Responsive styles */
+    @media (max-width: 500px) {
+      body {
+        padding: 16px 10px;
+        background: #f9fafb;
+      }
+
+      .top-bar,
+      .controls {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        /* gap: 10px; */
+        width: 100%;
+      }
+
+      select,
+      button {
+        width: 100%;
+        max-width: 100%;
+        font-size: 15px;
+        padding: 12px;
+        border-radius: 12px;
+      }
+
+      .card-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 95vw;
+        height: 180px;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      .card .front,
+      .card .back {
+        padding: 15px;
+        font-size: 18px;
+        border-radius: 20px;
+      }
+
+      #quizInput {
+        width: 100%;
+        max-width: 95vw;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+      }
+
+      #quizArea button {
+        width: 100%;
+        max-width: 95vw;
+        margin-top: 12px;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 10px;
+        background-color: #4f46e5;
+        color: white;
+        font-weight: bold;
+      }
+
+      h2 {
+        font-size: 22px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      #feedback {
+        font-size: 15px;
+        margin-top: 10px;
+      }
+
+      #summary {
+        font-size: 14px;
+        color: green;
+        margin-top: 5px;
+      }
+    }
   </style>
 
 </head>
+
 <body>
 
   <h2>📘 Flashcard Từ Vựng Nhật - Việt</h2>
@@ -659,699 +665,699 @@ button:hover {
         { "jp": "itadakimasu", "vn": "xin nhận ~ (cách nói dùng trước khi ăn hoặc uống)" },
         { "jp": "gochisousamadeshita", "vn": "xin cám ơn anh/chị đã đãi tôi bữa ăn ngon (cách dùng sau khi ăn xong)" }
       ]
-      ,"lesson8": [
-    { "jp": "hansamu[na]", "vn": "đẹp trai" },
-    { "jp": "kirei[na]", "vn": "đẹp, sạch" },
-    { "jp": "shizuka[na]", "vn": "yên tĩnh" },
-    { "jp": "nigiyaka[na]", "vn": "náo nhiệt" },
-    { "jp": "yuumei[na]", "vn": "nổi tiếng" },
-    { "jp": "shinsetsu[na]", "vn": "tốt bụng, thân thiện (k dùng để nói ng thân trong gia đình)" },
-    { "jp": "genki[na]", "vn": "khỏe mạnh" },
-    { "jp": "hima[na]", "vn": "rảnh rỗi" },
-    { "jp": "benri[na]", "vn": "tiện lợi" },
-    { "jp": "suteki[na]", "vn": "đẹp, hay" },
-    { "jp": "ookii", "vn": "lớn, to" },
-    { "jp": "chiisai", "vn": "bé, nhỏ" },
-    { "jp": "atarashii", "vn": "mới" },
-    { "jp": "furui", "vn": "cũ" },
-    { "jp": "ii(yoi)", "vn": "tốt" },
-    { "jp": "warui", "vn": "xấu" },
-    { "jp": "atsui", "vn": "nóng" },
-    { "jp": "samui", "vn": "lạnh, rét" },
-    { "jp": "tsumetai", "vn": "lạnh, buốt" },
-    { "jp": "muzukashii", "vn": "khó" },
-    { "jp": "yasashii", "vn": "dễ" },
-    { "jp": "takai", "vn": "đắt, cao" },
-    { "jp": "yasui", "vn": "rẻ" },
-    { "jp": "hikui", "vn": "thấp" },
-    { "jp": "omoshiroi", "vn": "thú vị, hay" },
-    { "jp": "oishii", "vn": "ngon" },
-    { "jp": "isogashii", "vn": "bận" },
-    { "jp": "tanoshii", "vn": "vui" },
-    { "jp": "shiroi", "vn": "trắng" },
-    { "jp": "kuroi", "vn": "đen" },
-    { "jp": "akai", "vn": "đỏ" },
-    { "jp": "aoi", "vn": "xanh da trời" },
-    { "jp": "sakura", "vn": "anh đào" },
-    { "jp": "yama", "vn": "núi" },
-    { "jp": "machi", "vn": "thị trấn, thành phố" },
-    { "jp": "tabemono", "vn": "đồ ăn" },
-    { "jp": "tokoro", "vn": "nơi, chỗ" },
-    { "jp": "ryou", "vn": "kí túc xá" },
-    { "jp": "resutoran", "vn": "nhà hàng" },
-    { "jp": "seikatsu", "vn": "cuộc sống, sinh hoạt" },
-    { "jp": "[o]shigoto", "vn": "công việc" },
-    { "jp": "dou", "vn": "thế nào" },
-    { "jp": "donna~", "vn": "~ như thế nào" },
-    { "jp": "totemo", "vn": "rất, lắm" },
-    { "jp": "amari", "vn": "không ~ lắm" },
-    { "jp": "soshite", "vn": "và, thêm nữa (dùng để nối 2 câu)" },
-    { "jp": "~ga, ~", "vn": "~, nhưng ~" },
-    { "jp": "ogenkidesuka", "vn": "anh/chị có khỏe không?" },
-    { "jp": "soudesune", "vn": "thế à, như vậy nhỉ" },
-    { "jp": "mouippaiikagadesuka[~,]", "vn": "anh/chị dùng thêm một chén [~] nữa được không ạ?" },
-    { "jp": "iie, kekkoudesu", "vn": "không, đủ rồi ạ" },
-    { "jp": "mou~desu[ne]", "vn": "đã ~ rồi nhỉ, đã ~ rồi, đúng không ạ?" },
-    { "jp": "sorosoroshitsureishimasu", "vn": "sắp đến lúc tôi phải xin phép rồi" },
-    { "jp": "mata irasshattekudasai", "vn": "lần sau anh/chị lại đến chơi nhé" }
-  ],
-  "lesson9": [
-    { "jp": "wakarimasu", "vn": "hiểu, nắm được" },
-    { "jp": "arimasu", "vn": "có (sở hữu)" },
-    { "jp": "suki[na]", "vn": "thích" },
-    { "jp": "kirai[na]", "vn": "ghét, không thích" },
-    { "jp": "jousu[na]", "vn": "giỏi, khéo" },
-    { "jp": "heta[na]", "vn": "kém" },
-    { "jp": "nomimono", "vn": "đồ uống" },
-    { "jp": "ryouri", "vn": "món ăn, việc nấu ăn" },
-    { "jp": "supo-tsu", "vn": "thể thao" },
-    { "jp": "yakyuu", "vn": "bóng chày" },
-    { "jp": "dansu", "vn": "khiêu vũ, nhảy" },
-    { "jp": "ryokou", "vn": "du lịch" },
-    { "jp": "ongaku", "vn": "âm nhạc" },
-    { "jp": "uta", "vn": "bài hát" },
-    { "jp": "kurashikku", "vn": "nhạc cổ điển" },
-    { "jp": "jazu", "vn": "nhạc jazz" },
-    { "jp": "konsa-to", "vn": "buổi hòa nhạc" },
-    { "jp": "karaoke", "vn": "karaoke" },
-    { "jp": "kabuki", "vn": "kabuki (1 loại ca kịch truyền thống của Nhật)" },
-    { "jp": "e", "vn": "tranh, hội họa" },
-    { "jp": "ji", "vn": "chữ" },
-    { "jp": "kanji", "vn": "chữ hán" },
-    { "jp": "hiragana", "vn": "chữ hiragana" },
-    { "jp": "katakana", "vn": "chữ katakana" },
-    { "jp": "ro-maji", "vn": "chữ la mã" },
-    { "jp": "komakaiokane", "vn": "tiền lẻ" },
-    { "jp": "chiketto", "vn": "vé (xem hòa nhạc, xem phim)" },
-    { "jp": "jikan", "vn": "thời gian" },
-    { "jp": "youji", "vn": "việc bận, công chuyện" },
-    { "jp": "yakusoku", "vn": "cuộc hẹn, lời hứa" },
-    { "jp": "arubaito", "vn": "việc làm thêm" },
-    { "jp": "goshujin", "vn": "chồng (dùng khi nói về chồng người khác)" },
-    { "jp": "otto(shujin)", "vn": "chồng (dùng khi nói về chồng mình)" },
-    { "jp": "okusan", "vn": "vợ (dùng khi nói về vợ người khác)" },
-    { "jp": "tsuma(kanaia)", "vn": "vợ (dùng khi nói về vợ mình)" },
-    { "jp": "kodomo", "vn": "con cái" },
-    { "jp": "yoku", "vn": "tốt, rõ (chỉ mức độ)" },
-    { "jp": "daitai", "vn": "đại khái" },
-    { "jp": "takusan", "vn": "nhiều" },
-    { "jp": "sukoshi", "vn": "ít, một ít" },
-    { "jp": "zenzen", "vn": "hoàn toàn ~ không" },
-    { "jp": "hayaku", "vn": "sớm, nhanh" },
-    { "jp": "~kara", "vn": "~ vì" },
-    { "jp": "doushite", "vn": "tại sao?" },
-    { "jp": "kashitekudasai", "vn": "hãy cho tôi mượn" },
-    { "jp": "iidesuyo", "vn": "được chứ, được ạ" },
-    { "jp": "zannendesu[ga]", "vn": "tôi xin lỗi nhưng… đáng tiếc là…" },
-    { "jp": "aa", "vn": "ah (cách nói khi đã gặp được đúng người trên điện thoại)" },
-    { "jp": "isshoniikagadesuka", "vn": "anh/chị cùng ~(làm cái gì đó) với chúng tôi được không?" },
-    { "jp": "[~ha]chotto~", "vn": "[~thì] có lẽ không được rồi" },
-    { "jp": "damedesuka", "vn": "không được à?" },
-    { "jp": "matakondoonegaishimasu", "vn": "hẹn anh/chị lần sau vậy" }
-  ]
-    , "lesson10": [
-    { "jp": "arimasu", "vn": "có (tồn tại, dùng cho đồ vật)" },
-    { "jp": "imasu", "vn": "có, ở, tồn tại (dùng cho người và động vật)" },
-    { "jp": "iroiro[na]", "vn": "nhiều, đa dạng" },
-    { "jp": "otokonohito", "vn": "người đàn ông" },
-    { "jp": "onnanohito", "vn": "người phụ nữ" },
-    { "jp": "otokonoko", "vn": "cậu con trai" },
-    { "jp": "onnanoko", "vn": "cô con gái" },
-    { "jp": "inu", "vn": "chó" },
-    { "jp": "neko", "vn": "mèo" },
-    { "jp": "panda", "vn": "gấu trúc" },
-    { "jp": "zou", "vn": "voi" },
-    { "jp": "ki", "vn": "cây" },
-    { "jp": "mono", "vn": "đồ vật" },
-    { "jp": "denchi", "vn": "pin" },
-    { "jp": "hako", "vn": "hộp" },
-    { "jp": "suitchi", "vn": "công tắc" },
-    { "jp": "reizouko", "vn": "tủ lạnh" },
-    { "jp": "te-buru", "vn": "cái bàn" },
-    { "jp": "beddo", "vn": "cái giường" },
-    { "jp": "tana", "vn": "kệ sách" },
-    { "jp": "doa", "vn": "cái cửa" },
-    { "jp": "mado", "vn": "cửa sổ" },
-    { "jp": "posuto", "vn": "hòm thư" },
-    { "jp": "biru", "vn": "tòa nhà" },
-    { "jp": "ATM", "vn": "máy ATM" },
-    { "jp": "konbini", "vn": "cửa hàng tiện lợi" },
-    { "jp": "kouen", "vn": "công viên" },
-    { "jp": "kissaten", "vn": "quán giải khát, quán nước" },
-    { "jp": "~ya", "vn": "hiệu ~, cửa hàng ~ (VD: cửa hàng sách là “hon ya”)" },
-    { "jp": "noriba", "vn": "bến xe, điểm lên xuống" },
-    { "jp": "ken", "vn": "tỉnh" },
-    { "jp": "ue", "vn": "trên" },
-    { "jp": "shita", "vn": "dưới" },
-    { "jp": "mae", "vn": "đằng trước" },
-    { "jp": "ushiro", "vn": "đằng sau" },
-    { "jp": "migi", "vn": "bên phải" },
-    { "jp": "hidari", "vn": "bên trái" },
-    { "jp": "naka", "vn": "trong, giữa" },
-    { "jp": "soto", "vn": "bên ngoài" },
-    { "jp": "tonari", "vn": "bên cạnh" },
-    { "jp": "chikaku", "vn": "ở gần" },
-    { "jp": "aida", "vn": "ở giữa" },
-    { "jp": "~ya~[nado]~", "vn": "~ và ~" },
-    { "jp": "[doumo]sumimasen", "vn": "cảm ơn" },
-    { "jp": "nanpura-", "vn": "nước mắm" },
-    { "jp": "ko-na-", "vn": "góc, khu vực" },
-    { "jp": "ichibanshita", "vn": "ở dưới cùng (VD: kết hợp “ichiban” với ue, shita, migi…)" }
-  ],
-  "lesson11": [
-    { "jp": "imasu", "vn": "có (VD: kodomo imasu: có con)" },
-    { "jp": "imasu", "vn": "ở (VD: nihon imasu: ở Nhật)" },
-    { "jp": "kakarimasu", "vn": "mất, tốn (VD: jikan kakarimasu: mất thời gian, okane kakarimasu: mất tiền)" },
-    { "jp": "yasumimasu", "vn": "nghỉ" },
-    { "jp": "hitotsu", "vn": "một cái (dùng để đếm đồ vật)" },
-    { "jp": "futatsu", "vn": "hai cái" },
-    { "jp": "mittsu", "vn": "ba cái" },
-    { "jp": "yottsu", "vn": "bốn cái" },
-    { "jp": "itsutsu", "vn": "năm cái" },
-    { "jp": "muttsu", "vn": "sáu cái" },
-    { "jp": "nanatsu", "vn": "bảy cái" },
-    { "jp": "yattsu", "vn": "tám cái" },
-    { "jp": "kokonotsu", "vn": "chín cái" },
-    { "jp": "too", "vn": "mười cái" },
-    { "jp": "ikutsu", "vn": "bao nhiêu cái, mấy cái" },
-    { "jp": "hitori", "vn": "một người" },
-    { "jp": "futari", "vn": "hai người" },
-    { "jp": "~nin", "vn": "~ người (VD: san nin: ba người)" },
-    { "jp": "-dai", "vn": "~ cái (dùng để đếm máy móc, xe cộ…) (VD: san dai: ba cái)" },
-    { "jp": "-mai", "vn": "~ tờ, tấm (dùng để đếm vật mỏng như giấy, tem) (VD: nan mai: ba tấm)" },
-    { "jp": "~kai", "vn": "~ lần (VD: san kai: ba lần)" },
-    { "jp": "ringo", "vn": "táo" },
-    { "jp": "mikan", "vn": "quýt" },
-    { "jp": "sandoicchi", "vn": "sandwich" },
-    { "jp": "kare-[raisu]", "vn": "món [cơm] ca-ri" },
-    { "jp": "aisukuri-mu", "vn": "kem" },
-    { "jp": "kitte", "vn": "tem" },
-    { "jp": "hagaki", "vn": "bưu thiếp" },
-    { "jp": "fuutou", "vn": "phong bì" },
-    { "jp": "ryoushin", "vn": "bố mẹ" },
-    { "jp": "kyoudai", "vn": "anh em ruột" },
-    { "jp": "ani", "vn": "anh ruột" },
-    { "jp": "oniisan", "vn": "anh trai (dùng cho người khác)" },
-    { "jp": "ane", "vn": "chị ruột" },
-    { "jp": "oneesan", "vn": "chị gái (dùng cho người khác)" },
-    { "jp": "otouto", "vn": "em trai ruột" },
-    { "jp": "otoutosan", "vn": "em trai (dùng cho người khác)" },
-    { "jp": "imouto", "vn": "em gái ruột" },
-    { "jp": "imoutosan", "vn": "em gái (dùng cho người khác)" },
-    { "jp": "gaikoku", "vn": "nước ngoài" },
-    { "jp": "ryuugakusei", "vn": "du học sinh" },
-    { "jp": "kurasu", "vn": "lớp học" },
-    { "jp": "-jikan", "vn": "~ tiếng (VD: san jikan: ba tiếng)" },
-    { "jp": "-shuukan", "vn": "~ tuần (VD: san shuukan: ba tuần)" },
-    { "jp": "-kagetsu", "vn": "~ tháng (VD: san kagetsu: ba tháng)" },
-    { "jp": "-nen", "vn": "~ năm (VD: san nen: ba năm)" },
-    { "jp": "~gurai", "vn": "khoảng ~ (VD: san shuukan gurai: khoảng 3 tuần)" },
-    { "jp": "donokurai", "vn": "bao lâu" },
-    { "jp": "zenbude", "vn": "tổng cộng" },
-    { "jp": "minna", "vn": "tất cả" },
-    { "jp": "~dake", "vn": "chỉ ~" },
-    { "jp": "kashikomarimashita", "vn": "tôi đã rõ rồi ạ" },
-    { "jp": "ii[o]tenkidesune", "vn": "trời đẹp nhỉ" },
-    { "jp": "odekakedesuka", "vn": "anh/chị đi ra ngoài đấy à?" },
-    { "jp": "chotto~made", "vn": "tôi đi ~ một chút" },
-    { "jp": "itteirasshai", "vn": "anh/chị đi nhé" },
-    { "jp": "ittekimasu", "vn": "tôi đi đây" },
-    { "jp": "funabin", "vn": "gửi bằng đường biển" },
-    { "jp": "koukuubin", "vn": "gửi bằng đường máy bay" },
-    { "jp": "onegaishimasu", "vn": "nhờ anh/chị" }
-  ], 
-  "lesson12": [
-    { "jp": "kantan[na]", "vn": "đơn giản, dễ" },
-    { "jp": "chikai", "vn": "gần" },
-    { "jp": "tooi", "vn": "xa" },
-    { "jp": "hayai", "vn": "nhanh, sớm" },
-    { "jp": "osoi", "vn": "chậm, muộn" },
-    { "jp": "ooi", "vn": "nhiều" },
-    { "jp": "sukunai", "vn": "ít" },
-    { "jp": "atatakai", "vn": "ấm" },
-    { "jp": "suzushii", "vn": "mát" },
-    { "jp": "amai", "vn": "ngọt" },
-    { "jp": "karai", "vn": "cay" },
-    { "jp": "omoi", "vn": "nặng" },
-    { "jp": "karui", "vn": "nhẹ" },
-    { "jp": "[ko-hi-ga~]ii", "vn": "thích, chọn, dùng [cafe]" },
-    { "jp": "kisetsu", "vn": "mùa" },
-    { "jp": "haru", "vn": "mùa xuân" },
-    { "jp": "natsu", "vn": "mùa hè" },
-    { "jp": "aki", "vn": "mùa thu" },
-    { "jp": "fuyu", "vn": "mùa đông" },
-    { "jp": "tenki", "vn": "thời tiết" },
-    { "jp": "ame", "vn": "mưa" },
-    { "jp": "yuki", "vn": "tuyết" },
-    { "jp": "kumori", "vn": "có mây" },
-    { "jp": "hoteru", "vn": "khách sạn" },
-    { "jp": "kuukou", "vn": "sân bay" },
-    { "jp": "umi", "vn": "biển, đại dương" },
-    { "jp": "sekai", "vn": "thế giới" },
-    { "jp": "pa-ti-", "vn": "tiệc" },
-    { "jp": "[o]matsuri", "vn": "lễ hội" },
-    { "jp": "sukiyaki", "vn": "món lẩu thịt bò nấu rau" },
-    { "jp": "sashimi", "vn": "món gỏi cá sống" },
-    { "jp": "[o]sushi", "vn": "sushi" },
-    { "jp": "tenpura", "vn": "món hải sản và rau chiên tẩm bột" },
-    { "jp": "butaniku", "vn": "thịt heo" },
-    { "jp": "toriniku", "vn": "thịt gà" },
-    { "jp": "gyuuniku", "vn": "thịt bò" },
-    { "jp": "lemon", "vn": "chanh" },
-    { "jp": "ikebana", "vn": "nghệ thuật cắm hoa (ikebana oshimasu: cắm hoa)" },
-    { "jp": "momiji", "vn": "lá đỏ" },
-    { "jp": "dochira", "vn": "phía nào, đằng nào, chỗ nào, đâu, giữa 2 cái chọn cái nào?" },
-    { "jp": "dochiramo", "vn": "cả hai" },
-    { "jp": "ichiban", "vn": "nhất, cùng" },
-    { "jp": "zutto", "vn": "hơn, hẳn" },
-    { "jp": "hajimete", "vn": "lần đầu tiên" },
-    { "jp": "tadaima", "vn": "tôi về rồi đây" },
-    { "jp": "okaerinasai", "vn": "mừng bạn đã về" },
-    { "jp": "waa, sugoihitodesune", "vn": "ôi, đông quá nhỉ~" },
-    { "jp": "tsukaremashita", "vn": "tôi mệt rồi" },
-    { "jp": "gionmatsuri", "vn": "lễ hội gi-ôn" }
-  ]
-    ,
-    "lesson13": [
-    { "jp": "asobimasu", "vn": "chơi" },
-    { "jp": "oyogimasu", "vn": "bơi" },
-    { "jp": "mukaemasu", "vn": "đón" },
-    { "jp": "tsukaremasu", "vn": "mệt" },
-    { "jp": "kekkonshimasu", "vn": "kết hôn, cưới, lập gia đình" },
-    { "jp": "kaimonoshimasu", "vn": "mua hàng" },
-    { "jp": "shokujishimasu", "vn": "ăn cơm, dùng bữa" },
-    { "jp": "sanposhimasu", "vn": "đi dạo" },
-    { "jp": "taihen[na]", "vn": "vất vả, khó khăn, khổ" },
-    { "jp": "hoshii", "vn": "muốn có" },
-    { "jp": "hiroi", "vn": "rộng" },
-    { "jp": "semai", "vn": "chật, hẹp" },
-    { "jp": "pu-ru", "vn": "bể bơi" },
-    { "jp": "kawa", "vn": "sông" },
-    { "jp": "bijutsu", "vn": "mỹ thuật" },
-    { "jp": "tsuri", "vn": "việc câu cá" },
-    { "jp": "suki-", "vn": "việc trượt tuyết" },
-    { "jp": "shuumatsu", "vn": "cuối tuần" },
-    { "jp": "oshougatsu", "vn": "tết, ngày tết" },
-    { "jp": "~goro", "vn": "khoảng ~ (VD: san ji goro: khoảng 3 giờ)" },
-    { "jp": "nanika", "vn": "cái gì đó" },
-    { "jp": "dokoka", "vn": "đâu đó, chỗ nào đó" },
-    { "jp": "nodoga kawakimashita", "vn": "khát" },
-    { "jp": "onakaga sukimashita", "vn": "đói" },
-    { "jp": "onakaga ippaidesu", "vn": "no" },
-    { "jp": "soushimashou", "vn": "nhất trí, thống nhất như thế" },
-    { "jp": "gochuumonha", "vn": "anh/chị dùng món gì ạ?" },
-    { "jp": "teishoku", "vn": "cơm phần" },
-    { "jp": "gyuudon", "vn": "cơm thịt bò" },
-    { "jp": "[shoushou] omachikudasai", "vn": "xin anh/chị vui lòng đợi [một chút]" },
-    { "jp": "degozaimasu", "vn": "cách nói lịch sự của “desu”" },
-    { "jp": "betsubetsuni", "vn": "riêng ra, để riêng" }
-  ],
-      
+      , "lesson8": [
+        { "jp": "hansamu[na]", "vn": "đẹp trai" },
+        { "jp": "kirei[na]", "vn": "đẹp, sạch" },
+        { "jp": "shizuka[na]", "vn": "yên tĩnh" },
+        { "jp": "nigiyaka[na]", "vn": "náo nhiệt" },
+        { "jp": "yuumei[na]", "vn": "nổi tiếng" },
+        { "jp": "shinsetsu[na]", "vn": "tốt bụng, thân thiện (k dùng để nói ng thân trong gia đình)" },
+        { "jp": "genki[na]", "vn": "khỏe mạnh" },
+        { "jp": "hima[na]", "vn": "rảnh rỗi" },
+        { "jp": "benri[na]", "vn": "tiện lợi" },
+        { "jp": "suteki[na]", "vn": "đẹp, hay" },
+        { "jp": "ookii", "vn": "lớn, to" },
+        { "jp": "chiisai", "vn": "bé, nhỏ" },
+        { "jp": "atarashii", "vn": "mới" },
+        { "jp": "furui", "vn": "cũ" },
+        { "jp": "ii(yoi)", "vn": "tốt" },
+        { "jp": "warui", "vn": "xấu" },
+        { "jp": "atsui", "vn": "nóng" },
+        { "jp": "samui", "vn": "lạnh, rét" },
+        { "jp": "tsumetai", "vn": "lạnh, buốt" },
+        { "jp": "muzukashii", "vn": "khó" },
+        { "jp": "yasashii", "vn": "dễ" },
+        { "jp": "takai", "vn": "đắt, cao" },
+        { "jp": "yasui", "vn": "rẻ" },
+        { "jp": "hikui", "vn": "thấp" },
+        { "jp": "omoshiroi", "vn": "thú vị, hay" },
+        { "jp": "oishii", "vn": "ngon" },
+        { "jp": "isogashii", "vn": "bận" },
+        { "jp": "tanoshii", "vn": "vui" },
+        { "jp": "shiroi", "vn": "trắng" },
+        { "jp": "kuroi", "vn": "đen" },
+        { "jp": "akai", "vn": "đỏ" },
+        { "jp": "aoi", "vn": "xanh da trời" },
+        { "jp": "sakura", "vn": "anh đào" },
+        { "jp": "yama", "vn": "núi" },
+        { "jp": "machi", "vn": "thị trấn, thành phố" },
+        { "jp": "tabemono", "vn": "đồ ăn" },
+        { "jp": "tokoro", "vn": "nơi, chỗ" },
+        { "jp": "ryou", "vn": "kí túc xá" },
+        { "jp": "resutoran", "vn": "nhà hàng" },
+        { "jp": "seikatsu", "vn": "cuộc sống, sinh hoạt" },
+        { "jp": "[o]shigoto", "vn": "công việc" },
+        { "jp": "dou", "vn": "thế nào" },
+        { "jp": "donna~", "vn": "~ như thế nào" },
+        { "jp": "totemo", "vn": "rất, lắm" },
+        { "jp": "amari", "vn": "không ~ lắm" },
+        { "jp": "soshite", "vn": "và, thêm nữa (dùng để nối 2 câu)" },
+        { "jp": "~ga, ~", "vn": "~, nhưng ~" },
+        { "jp": "ogenkidesuka", "vn": "anh/chị có khỏe không?" },
+        { "jp": "soudesune", "vn": "thế à, như vậy nhỉ" },
+        { "jp": "mouippaiikagadesuka[~,]", "vn": "anh/chị dùng thêm một chén [~] nữa được không ạ?" },
+        { "jp": "iie, kekkoudesu", "vn": "không, đủ rồi ạ" },
+        { "jp": "mou~desu[ne]", "vn": "đã ~ rồi nhỉ, đã ~ rồi, đúng không ạ?" },
+        { "jp": "sorosoroshitsureishimasu", "vn": "sắp đến lúc tôi phải xin phép rồi" },
+        { "jp": "mata irasshattekudasai", "vn": "lần sau anh/chị lại đến chơi nhé" }
+      ],
+      "lesson9": [
+        { "jp": "wakarimasu", "vn": "hiểu, nắm được" },
+        { "jp": "arimasu", "vn": "có (sở hữu)" },
+        { "jp": "suki[na]", "vn": "thích" },
+        { "jp": "kirai[na]", "vn": "ghét, không thích" },
+        { "jp": "jousu[na]", "vn": "giỏi, khéo" },
+        { "jp": "heta[na]", "vn": "kém" },
+        { "jp": "nomimono", "vn": "đồ uống" },
+        { "jp": "ryouri", "vn": "món ăn, việc nấu ăn" },
+        { "jp": "supo-tsu", "vn": "thể thao" },
+        { "jp": "yakyuu", "vn": "bóng chày" },
+        { "jp": "dansu", "vn": "khiêu vũ, nhảy" },
+        { "jp": "ryokou", "vn": "du lịch" },
+        { "jp": "ongaku", "vn": "âm nhạc" },
+        { "jp": "uta", "vn": "bài hát" },
+        { "jp": "kurashikku", "vn": "nhạc cổ điển" },
+        { "jp": "jazu", "vn": "nhạc jazz" },
+        { "jp": "konsa-to", "vn": "buổi hòa nhạc" },
+        { "jp": "karaoke", "vn": "karaoke" },
+        { "jp": "kabuki", "vn": "kabuki (1 loại ca kịch truyền thống của Nhật)" },
+        { "jp": "e", "vn": "tranh, hội họa" },
+        { "jp": "ji", "vn": "chữ" },
+        { "jp": "kanji", "vn": "chữ hán" },
+        { "jp": "hiragana", "vn": "chữ hiragana" },
+        { "jp": "katakana", "vn": "chữ katakana" },
+        { "jp": "ro-maji", "vn": "chữ la mã" },
+        { "jp": "komakaiokane", "vn": "tiền lẻ" },
+        { "jp": "chiketto", "vn": "vé (xem hòa nhạc, xem phim)" },
+        { "jp": "jikan", "vn": "thời gian" },
+        { "jp": "youji", "vn": "việc bận, công chuyện" },
+        { "jp": "yakusoku", "vn": "cuộc hẹn, lời hứa" },
+        { "jp": "arubaito", "vn": "việc làm thêm" },
+        { "jp": "goshujin", "vn": "chồng (dùng khi nói về chồng người khác)" },
+        { "jp": "otto(shujin)", "vn": "chồng (dùng khi nói về chồng mình)" },
+        { "jp": "okusan", "vn": "vợ (dùng khi nói về vợ người khác)" },
+        { "jp": "tsuma(kanaia)", "vn": "vợ (dùng khi nói về vợ mình)" },
+        { "jp": "kodomo", "vn": "con cái" },
+        { "jp": "yoku", "vn": "tốt, rõ (chỉ mức độ)" },
+        { "jp": "daitai", "vn": "đại khái" },
+        { "jp": "takusan", "vn": "nhiều" },
+        { "jp": "sukoshi", "vn": "ít, một ít" },
+        { "jp": "zenzen", "vn": "hoàn toàn ~ không" },
+        { "jp": "hayaku", "vn": "sớm, nhanh" },
+        { "jp": "~kara", "vn": "~ vì" },
+        { "jp": "doushite", "vn": "tại sao?" },
+        { "jp": "kashitekudasai", "vn": "hãy cho tôi mượn" },
+        { "jp": "iidesuyo", "vn": "được chứ, được ạ" },
+        { "jp": "zannendesu[ga]", "vn": "tôi xin lỗi nhưng… đáng tiếc là…" },
+        { "jp": "aa", "vn": "ah (cách nói khi đã gặp được đúng người trên điện thoại)" },
+        { "jp": "isshoniikagadesuka", "vn": "anh/chị cùng ~(làm cái gì đó) với chúng tôi được không?" },
+        { "jp": "[~ha]chotto~", "vn": "[~thì] có lẽ không được rồi" },
+        { "jp": "damedesuka", "vn": "không được à?" },
+        { "jp": "matakondoonegaishimasu", "vn": "hẹn anh/chị lần sau vậy" }
+      ]
+      , "lesson10": [
+        { "jp": "arimasu", "vn": "có (tồn tại, dùng cho đồ vật)" },
+        { "jp": "imasu", "vn": "có, ở, tồn tại (dùng cho người và động vật)" },
+        { "jp": "iroiro[na]", "vn": "nhiều, đa dạng" },
+        { "jp": "otokonohito", "vn": "người đàn ông" },
+        { "jp": "onnanohito", "vn": "người phụ nữ" },
+        { "jp": "otokonoko", "vn": "cậu con trai" },
+        { "jp": "onnanoko", "vn": "cô con gái" },
+        { "jp": "inu", "vn": "chó" },
+        { "jp": "neko", "vn": "mèo" },
+        { "jp": "panda", "vn": "gấu trúc" },
+        { "jp": "zou", "vn": "voi" },
+        { "jp": "ki", "vn": "cây" },
+        { "jp": "mono", "vn": "đồ vật" },
+        { "jp": "denchi", "vn": "pin" },
+        { "jp": "hako", "vn": "hộp" },
+        { "jp": "suitchi", "vn": "công tắc" },
+        { "jp": "reizouko", "vn": "tủ lạnh" },
+        { "jp": "te-buru", "vn": "cái bàn" },
+        { "jp": "beddo", "vn": "cái giường" },
+        { "jp": "tana", "vn": "kệ sách" },
+        { "jp": "doa", "vn": "cái cửa" },
+        { "jp": "mado", "vn": "cửa sổ" },
+        { "jp": "posuto", "vn": "hòm thư" },
+        { "jp": "biru", "vn": "tòa nhà" },
+        { "jp": "ATM", "vn": "máy ATM" },
+        { "jp": "konbini", "vn": "cửa hàng tiện lợi" },
+        { "jp": "kouen", "vn": "công viên" },
+        { "jp": "kissaten", "vn": "quán giải khát, quán nước" },
+        { "jp": "~ya", "vn": "hiệu ~, cửa hàng ~ (VD: cửa hàng sách là “hon ya”)" },
+        { "jp": "noriba", "vn": "bến xe, điểm lên xuống" },
+        { "jp": "ken", "vn": "tỉnh" },
+        { "jp": "ue", "vn": "trên" },
+        { "jp": "shita", "vn": "dưới" },
+        { "jp": "mae", "vn": "đằng trước" },
+        { "jp": "ushiro", "vn": "đằng sau" },
+        { "jp": "migi", "vn": "bên phải" },
+        { "jp": "hidari", "vn": "bên trái" },
+        { "jp": "naka", "vn": "trong, giữa" },
+        { "jp": "soto", "vn": "bên ngoài" },
+        { "jp": "tonari", "vn": "bên cạnh" },
+        { "jp": "chikaku", "vn": "ở gần" },
+        { "jp": "aida", "vn": "ở giữa" },
+        { "jp": "~ya~[nado]~", "vn": "~ và ~" },
+        { "jp": "[doumo]sumimasen", "vn": "cảm ơn" },
+        { "jp": "nanpura-", "vn": "nước mắm" },
+        { "jp": "ko-na-", "vn": "góc, khu vực" },
+        { "jp": "ichibanshita", "vn": "ở dưới cùng (VD: kết hợp “ichiban” với ue, shita, migi…)" }
+      ],
+      "lesson11": [
+        { "jp": "imasu", "vn": "có (VD: kodomo imasu: có con)" },
+        { "jp": "imasu", "vn": "ở (VD: nihon imasu: ở Nhật)" },
+        { "jp": "kakarimasu", "vn": "mất, tốn (VD: jikan kakarimasu: mất thời gian, okane kakarimasu: mất tiền)" },
+        { "jp": "yasumimasu", "vn": "nghỉ" },
+        { "jp": "hitotsu", "vn": "một cái (dùng để đếm đồ vật)" },
+        { "jp": "futatsu", "vn": "hai cái" },
+        { "jp": "mittsu", "vn": "ba cái" },
+        { "jp": "yottsu", "vn": "bốn cái" },
+        { "jp": "itsutsu", "vn": "năm cái" },
+        { "jp": "muttsu", "vn": "sáu cái" },
+        { "jp": "nanatsu", "vn": "bảy cái" },
+        { "jp": "yattsu", "vn": "tám cái" },
+        { "jp": "kokonotsu", "vn": "chín cái" },
+        { "jp": "too", "vn": "mười cái" },
+        { "jp": "ikutsu", "vn": "bao nhiêu cái, mấy cái" },
+        { "jp": "hitori", "vn": "một người" },
+        { "jp": "futari", "vn": "hai người" },
+        { "jp": "~nin", "vn": "~ người (VD: san nin: ba người)" },
+        { "jp": "-dai", "vn": "~ cái (dùng để đếm máy móc, xe cộ…) (VD: san dai: ba cái)" },
+        { "jp": "-mai", "vn": "~ tờ, tấm (dùng để đếm vật mỏng như giấy, tem) (VD: nan mai: ba tấm)" },
+        { "jp": "~kai", "vn": "~ lần (VD: san kai: ba lần)" },
+        { "jp": "ringo", "vn": "táo" },
+        { "jp": "mikan", "vn": "quýt" },
+        { "jp": "sandoicchi", "vn": "sandwich" },
+        { "jp": "kare-[raisu]", "vn": "món [cơm] ca-ri" },
+        { "jp": "aisukuri-mu", "vn": "kem" },
+        { "jp": "kitte", "vn": "tem" },
+        { "jp": "hagaki", "vn": "bưu thiếp" },
+        { "jp": "fuutou", "vn": "phong bì" },
+        { "jp": "ryoushin", "vn": "bố mẹ" },
+        { "jp": "kyoudai", "vn": "anh em ruột" },
+        { "jp": "ani", "vn": "anh ruột" },
+        { "jp": "oniisan", "vn": "anh trai (dùng cho người khác)" },
+        { "jp": "ane", "vn": "chị ruột" },
+        { "jp": "oneesan", "vn": "chị gái (dùng cho người khác)" },
+        { "jp": "otouto", "vn": "em trai ruột" },
+        { "jp": "otoutosan", "vn": "em trai (dùng cho người khác)" },
+        { "jp": "imouto", "vn": "em gái ruột" },
+        { "jp": "imoutosan", "vn": "em gái (dùng cho người khác)" },
+        { "jp": "gaikoku", "vn": "nước ngoài" },
+        { "jp": "ryuugakusei", "vn": "du học sinh" },
+        { "jp": "kurasu", "vn": "lớp học" },
+        { "jp": "-jikan", "vn": "~ tiếng (VD: san jikan: ba tiếng)" },
+        { "jp": "-shuukan", "vn": "~ tuần (VD: san shuukan: ba tuần)" },
+        { "jp": "-kagetsu", "vn": "~ tháng (VD: san kagetsu: ba tháng)" },
+        { "jp": "-nen", "vn": "~ năm (VD: san nen: ba năm)" },
+        { "jp": "~gurai", "vn": "khoảng ~ (VD: san shuukan gurai: khoảng 3 tuần)" },
+        { "jp": "donokurai", "vn": "bao lâu" },
+        { "jp": "zenbude", "vn": "tổng cộng" },
+        { "jp": "minna", "vn": "tất cả" },
+        { "jp": "~dake", "vn": "chỉ ~" },
+        { "jp": "kashikomarimashita", "vn": "tôi đã rõ rồi ạ" },
+        { "jp": "ii[o]tenkidesune", "vn": "trời đẹp nhỉ" },
+        { "jp": "odekakedesuka", "vn": "anh/chị đi ra ngoài đấy à?" },
+        { "jp": "chotto~made", "vn": "tôi đi ~ một chút" },
+        { "jp": "itteirasshai", "vn": "anh/chị đi nhé" },
+        { "jp": "ittekimasu", "vn": "tôi đi đây" },
+        { "jp": "funabin", "vn": "gửi bằng đường biển" },
+        { "jp": "koukuubin", "vn": "gửi bằng đường máy bay" },
+        { "jp": "onegaishimasu", "vn": "nhờ anh/chị" }
+      ],
+      "lesson12": [
+        { "jp": "kantan[na]", "vn": "đơn giản, dễ" },
+        { "jp": "chikai", "vn": "gần" },
+        { "jp": "tooi", "vn": "xa" },
+        { "jp": "hayai", "vn": "nhanh, sớm" },
+        { "jp": "osoi", "vn": "chậm, muộn" },
+        { "jp": "ooi", "vn": "nhiều" },
+        { "jp": "sukunai", "vn": "ít" },
+        { "jp": "atatakai", "vn": "ấm" },
+        { "jp": "suzushii", "vn": "mát" },
+        { "jp": "amai", "vn": "ngọt" },
+        { "jp": "karai", "vn": "cay" },
+        { "jp": "omoi", "vn": "nặng" },
+        { "jp": "karui", "vn": "nhẹ" },
+        { "jp": "[ko-hi-ga~]ii", "vn": "thích, chọn, dùng [cafe]" },
+        { "jp": "kisetsu", "vn": "mùa" },
+        { "jp": "haru", "vn": "mùa xuân" },
+        { "jp": "natsu", "vn": "mùa hè" },
+        { "jp": "aki", "vn": "mùa thu" },
+        { "jp": "fuyu", "vn": "mùa đông" },
+        { "jp": "tenki", "vn": "thời tiết" },
+        { "jp": "ame", "vn": "mưa" },
+        { "jp": "yuki", "vn": "tuyết" },
+        { "jp": "kumori", "vn": "có mây" },
+        { "jp": "hoteru", "vn": "khách sạn" },
+        { "jp": "kuukou", "vn": "sân bay" },
+        { "jp": "umi", "vn": "biển, đại dương" },
+        { "jp": "sekai", "vn": "thế giới" },
+        { "jp": "pa-ti-", "vn": "tiệc" },
+        { "jp": "[o]matsuri", "vn": "lễ hội" },
+        { "jp": "sukiyaki", "vn": "món lẩu thịt bò nấu rau" },
+        { "jp": "sashimi", "vn": "món gỏi cá sống" },
+        { "jp": "[o]sushi", "vn": "sushi" },
+        { "jp": "tenpura", "vn": "món hải sản và rau chiên tẩm bột" },
+        { "jp": "butaniku", "vn": "thịt heo" },
+        { "jp": "toriniku", "vn": "thịt gà" },
+        { "jp": "gyuuniku", "vn": "thịt bò" },
+        { "jp": "lemon", "vn": "chanh" },
+        { "jp": "ikebana", "vn": "nghệ thuật cắm hoa (ikebana oshimasu: cắm hoa)" },
+        { "jp": "momiji", "vn": "lá đỏ" },
+        { "jp": "dochira", "vn": "phía nào, đằng nào, chỗ nào, đâu, giữa 2 cái chọn cái nào?" },
+        { "jp": "dochiramo", "vn": "cả hai" },
+        { "jp": "ichiban", "vn": "nhất, cùng" },
+        { "jp": "zutto", "vn": "hơn, hẳn" },
+        { "jp": "hajimete", "vn": "lần đầu tiên" },
+        { "jp": "tadaima", "vn": "tôi về rồi đây" },
+        { "jp": "okaerinasai", "vn": "mừng bạn đã về" },
+        { "jp": "waa, sugoihitodesune", "vn": "ôi, đông quá nhỉ~" },
+        { "jp": "tsukaremashita", "vn": "tôi mệt rồi" },
+        { "jp": "gionmatsuri", "vn": "lễ hội gi-ôn" }
+      ]
+      ,
+      "lesson13": [
+        { "jp": "asobimasu", "vn": "chơi" },
+        { "jp": "oyogimasu", "vn": "bơi" },
+        { "jp": "mukaemasu", "vn": "đón" },
+        { "jp": "tsukaremasu", "vn": "mệt" },
+        { "jp": "kekkonshimasu", "vn": "kết hôn, cưới, lập gia đình" },
+        { "jp": "kaimonoshimasu", "vn": "mua hàng" },
+        { "jp": "shokujishimasu", "vn": "ăn cơm, dùng bữa" },
+        { "jp": "sanposhimasu", "vn": "đi dạo" },
+        { "jp": "taihen[na]", "vn": "vất vả, khó khăn, khổ" },
+        { "jp": "hoshii", "vn": "muốn có" },
+        { "jp": "hiroi", "vn": "rộng" },
+        { "jp": "semai", "vn": "chật, hẹp" },
+        { "jp": "pu-ru", "vn": "bể bơi" },
+        { "jp": "kawa", "vn": "sông" },
+        { "jp": "bijutsu", "vn": "mỹ thuật" },
+        { "jp": "tsuri", "vn": "việc câu cá" },
+        { "jp": "suki-", "vn": "việc trượt tuyết" },
+        { "jp": "shuumatsu", "vn": "cuối tuần" },
+        { "jp": "oshougatsu", "vn": "tết, ngày tết" },
+        { "jp": "~goro", "vn": "khoảng ~ (VD: san ji goro: khoảng 3 giờ)" },
+        { "jp": "nanika", "vn": "cái gì đó" },
+        { "jp": "dokoka", "vn": "đâu đó, chỗ nào đó" },
+        { "jp": "nodoga kawakimashita", "vn": "khát" },
+        { "jp": "onakaga sukimashita", "vn": "đói" },
+        { "jp": "onakaga ippaidesu", "vn": "no" },
+        { "jp": "soushimashou", "vn": "nhất trí, thống nhất như thế" },
+        { "jp": "gochuumonha", "vn": "anh/chị dùng món gì ạ?" },
+        { "jp": "teishoku", "vn": "cơm phần" },
+        { "jp": "gyuudon", "vn": "cơm thịt bò" },
+        { "jp": "[shoushou] omachikudasai", "vn": "xin anh/chị vui lòng đợi [một chút]" },
+        { "jp": "degozaimasu", "vn": "cách nói lịch sự của “desu”" },
+        { "jp": "betsubetsuni", "vn": "riêng ra, để riêng" }
+      ],
+
       "lesson14": [
-    { "jp": "tsukemasu", "vn": "bật (điện, máy điều hòa)" },
-    { "jp": "keshimasu", "vn": "tắt (điện, máy điều hòa)" },
-    { "jp": "akemasu", "vn": "mở (cửa, cửa sổ)" },
-    { "jp": "shimemasu", "vn": "đóng (cửa, cửa sổ)" },
-    { "jp": "isogimasu", "vn": "vội, gấp" },
-    { "jp": "machimasu", "vn": "đợi, chờ" },
-    { "jp": "magarimasu", "vn": "rẽ (phải, trái) - VD: migi re magarimasu: rẽ phải" },
-    { "jp": "mochimasu", "vn": "mang, cầm" },
-    { "jp": "torimasu", "vn": "lấy (ví)" },
-    { "jp": "tetsudaimasu", "vn": "giúp (làm việc)" },
-    { "jp": "yobimasu", "vn": "gọi (taxi, tên)" },
-    { "jp": "hanashimasu", "vn": "nói, nói chuyện" },
-    { "jp": "tsukaimasu", "vn": "dùng, sử dụng" },
-    { "jp": "tomemasu", "vn": "dừng, đỗ (ô tô)" },
-    { "jp": "misemasu", "vn": "cho xem, trình" },
-    { "jp": "oshiemasu", "vn": "nói, cho biết" },
-    { "jp": "suwarimasu", "vn": "ngồi" },
-    { "jp": "tachimasu", "vn": "đứng" },
-    { "jp": "hairimasu", "vn": "vào" },
-    { "jp": "demasu", "vn": "ra" },
-    { "jp": "furimasu", "vn": "rơi - VD: ame ga furimasu: mưa rơi, trời mưa" },
-    { "jp": "kopi-shimasu", "vn": "copy" },
-    { "jp": "denki", "vn": "điện, đèn điện" },
-    { "jp": "eakon", "vn": "máy điều hòa" },
-    { "jp": "pasupo-to", "vn": "hộ chiếu" },
-    { "jp": "namae", "vn": "tên" },
-    { "jp": "juusho", "vn": "địa chỉ" },
-    { "jp": "chizu", "vn": "bản đồ" },
-    { "jp": "shio", "vn": "muối" },
-    { "jp": "satou", "vn": "đường" },
-    { "jp": "mondai", "vn": "câu hỏi, vấn đề" },
-    { "jp": "kotae", "vn": "câu trả lời" },
-    { "jp": "yomikata", "vn": "cách đọc" },
-    { "jp": "~kata", "vn": "cách - VD: kaki + kata: cách viết - yomi + kata: cách đọc" },
-    { "jp": "massugu", "vn": "thẳng" },
-    { "jp": "yukkuri", "vn": "chậm, thong thả, thoải mái" },
-    { "jp": "sugu", "vn": "ngay, lập tức" },
-    { "jp": "mata", "vn": "lại (~đến)" },
-    { "jp": "atode", "vn": "sau" },
-    { "jp": "mou sukoshi", "vn": "thêm một chút nữa thôi" },
-    { "jp": "mou~", "vn": "thêm ~" },
-    { "jp": "saa", "vn": "thôi, nào" },
-    { "jp": "are?", "vn": "ô!" },
-    { "jp": "shingou wo migihe magattekudasai", "vn": "a/chị rẽ phải ở chổ đèn tín hiệu" },
-    { "jp": "koredeonegaishimasu", "vn": "gửi anh tiền này" },
-    { "jp": "otsuri", "vn": "tiền thối" }
-  ]
-  ,
-  "lesson15": [
-    { "jp": "okimasu", "vn": "đặt, để" },
-    { "jp": "tsukurimasu", "vn": "làm, chế tạo, sản xuất" },
-    { "jp": "urimasu", "vn": "bán" },
-    { "jp": "shirimasu", "vn": "biết" },
-    { "jp": "sumimasu", "vn": "sống, ở" },
-    { "jp": "kenkyuushimasu", "vn": "nghiên cứu" },
-    { "jp": "shiryou", "vn": "tài liệu, tư liệu" },
-    { "jp": "katarogu", "vn": "cát-ta-lốc" },
-    { "jp": "jikokuhyou", "vn": "bảng giờ tàu chạy" },
-    { "jp": "fuku", "vn": "quần áo" },
-    { "jp": "seihin", "vn": "sản phẩm" },
-    { "jp": "sofuto", "vn": "phần mềm" },
-    { "jp": "denshijisho", "vn": "kim từ điển" },
-    { "jp": "keizai", "vn": "kinh tế" },
-    { "jp": "shiyakusho", "vn": "tòa thị chính" },
-    { "jp": "koukou", "vn": "trường cấp 3" },
-    { "jp": "haisha", "vn": "nha sĩ" },
-    { "jp": "dokushin", "vn": "độc thân" },
-    { "jp": "sumimasen", "vn": "xin lỗi" },
-    { "jp": "minasan", "vn": "các anh chị, các ông bà, các bạn" },
-    { "jp": "omoidasu", "vn": "nhớ lại, hồi tưởng" },
-    { "jp": "irasshaimasu", "vn": "thể kính trọng của 'imasu'" }
-  ],
-  "lesson16": [
-    { "jp": "norimasu", "vn": "đi, lên [tàu] - VD: densha ni norimasu: lên tàu" },
-    { "jp": "orimasu", "vn": "xuống [tàu] - VD: densha o orimasu: xuống tàu" },
-    { "jp": "norikaemasu", "vn": "chuyển, đổi (tàu)" },
-    { "jp": "abimasu", "vn": "tắm" },
-    { "jp": "iremasu", "vn": "cho vào, bỏ vào" },
-    { "jp": "dashimasu", "vn": "lấy ra, rút (tiền)" },
-    { "jp": "oroshimasu", "vn": "rút (tiền)" },
-    { "jp": "hairimasu", "vn": "vào, nhập học" },
-    { "jp": "demasu", "vn": "ra, tốt nghiệp" },
-    { "jp": "oshimasu", "vn": "bấm, ấn (nút)" },
-    { "jp": "nomimasu", "vn": "uống (bia, rượu)" },
-    { "jp": "hajimemasu", "vn": "bắt đầu" },
-    { "jp": "kengakushimasu", "vn": "tham quan kiến tập" },
-    { "jp": "denwashimasu", "vn": "gọi điện thoại" },
-    { "jp": "wakai", "vn": "trẻ" },
-    { "jp": "nagai", "vn": "dài" },
-    { "jp": "mijikai", "vn": "ngắn" },
-    { "jp": "akarui", "vn": "sáng" },
-    { "jp": "kurai", "vn": "tối" },
-    { "jp": "karada", "vn": "người, cơ thể" },
-    { "jp": "atama", "vn": "đầu" },
-    { "jp": "kami", "vn": "tóc" },
-    { "jp": "kao", "vn": "mặt" },
-    { "jp": "me", "vn": "mắt" },
-    { "jp": "mimi", "vn": "tai" },
-    { "jp": "hana", "vn": "mũi" },
-    { "jp": "kuchi", "vn": "miệng" },
-    { "jp": "ha", "vn": "răng" },
-    { "jp": "onaka", "vn": "bụng" },
-    { "jp": "ashi", "vn": "chân" },
-    { "jp": "se", "vn": "chiều cao (cơ thể)" },
-    { "jp": "sa-bisu", "vn": "dịch vụ" },
-    { "jp": "jogingu", "vn": "việc chạy bộ" },
-    { "jp": "shawa-", "vn": "vòi hoa sen" },
-    { "jp": "midori", "vn": "màu xanh lá cây" },
-    { "jp": "[o]tera", "vn": "chùa" },
-    { "jp": "jinja", "vn": "đền thờ đạo thần" },
-    { "jp": "-ban", "vn": "số ~" },
-    { "jp": "douyatte", "vn": "làm thế nào ~" },
-    { "jp": "dono~", "vn": "cái nào ~ (dùng khi từ ba thứ trở lên)" },
-    { "jp": "dore", "vn": "cái nào (dùng khi 3 cái hoặc nhiều hơn)" },
-    { "jp": "sugoi desu ne", "vn": "thật là tuyệt vời" },
-    { "jp": "[iie,] mada mada desu", "vn": "[không], tôi còn kém lắm (khiêm tốn)" },
-    { "jp": "ohikidashidesuka", "vn": "anh/chị rút tiền ạ" },
-    { "jp": "mazu", "vn": "trước hết, trước tiên" },
-    { "jp": "tsugini", "vn": "tiếp theo, sau đó" },
-    { "jp": "kyasshuka-do", "vn": "thẻ ngân hàng" },
-    { "jp": "anshoubangou", "vn": "mã số bí mật (mật khẩu)" },
-    { "jp": "kingaku", "vn": "số tiền, khoản tiền" },
-    { "jp": "kakunin", "vn": "sự xác nhận, sự kiểm tra" },
-    { "jp": "botan", "vn": "nút" },
-    { "jp": "JR", "vn": "công ty đường sắt Nhật Bản" },
-    { "jp": "yukimatsuri", "vn": "lễ hội tuyết" }
-  ]
-  ,
-  "lesson17": [
-    { "jp": "oboemasu", "vn": "nhớ" },
-    { "jp": "nakushimasu", "vn": "mất, đánh mất" },
-    { "jp": "wasuremasu", "vn": "quên" },
-    { "jp": "haraimasu", "vn": "trả tiền" },
-    { "jp": "kaeshimasu", "vn": "trả lại" },
-    { "jp": "dekakemasu", "vn": "ra ngoài" },
-    { "jp": "nugimasu", "vn": "cởi (quần áo, giầy)" },
-    { "jp": "motteikimasu", "vn": "mang đi, mang theo" },
-    { "jp": "mottekimasu", "vn": "mang đến" },
-    { "jp": "shinpaishimasu", "vn": "lo lắng" },
-    { "jp": "zangyoushimasu", "vn": "làm thêm, tăng ca" },
-    { "jp": "shucchoushimasu", "vn": "đi công tác" },
-    { "jp": "nomimasu", "vn": "uống" },
-    { "jp": "hairimasu", "vn": "vào" },
-    { "jp": "taisetsu[na]", "vn": "quan trọng, quý giá" },
-    { "jp": "daijoubu[na]", "vn": "không sao" },
-    { "jp": "abunai", "vn": "nguy hiểm" },
-    { "jp": "kinnen", "vn": "cấm hút thuốc" },
-    { "jp": "[kenkou]hokenshou", "vn": "thẻ bảo hiểm [y tế]" },
-    { "jp": "kaze", "vn": "cảm, cúm" },
-    { "jp": "netsu", "vn": "sốt" },
-    { "jp": "byouki", "vn": "ốm, bệnh" },
-    { "jp": "kusuri", "vn": "thuốc" },
-    { "jp": "[o]furo", "vn": "bồn tắm" },
-    { "jp": "uwagi", "vn": "áo khoác" },
-    { "jp": "shitagi", "vn": "quần áo lót" },
-    { "jp": "2,3nichi", "vn": "vài ngày" },
-    { "jp": "2,3~", "vn": "vài ~ ('~' là hậu tố chỉ cách đếm)" },
-    { "jp": "~madeni", "vn": "trước ~ (chỉ thời hạn)" },
-    { "jp": "desukara", "vn": "vì thế, vì vậy, do đó" },
-    { "jp": "doushimashitaka", "vn": "có vấn đề gì? bạn bị làm sao?" },
-    { "jp": "nodo", "vn": "họng" },
-    { "jp": "~ga itaidesu", "vn": "đau - VD: nodo ga itaidesu: đau họng" },
-    { "jp": "sorekara", "vn": "và, sau đó" },
-    { "jp": "odaijini", "vn": "anh/chị nhớ giữ gìn sức khỏe (nói với những người bị bệnh)" }
-  ],
-  "lesson18": [
-    { "jp": "dekimasu", "vn": "có thể" },
-    { "jp": "araimasu", "vn": "rửa" },
-    { "jp": "hikimasu", "vn": "chơi (nhạc cụ) - VD: piano hikimasu: chơi piano" },
-    { "jp": "utaimasu", "vn": "hát" },
-    { "jp": "atsumemasu", "vn": "sưu tầm" },
-    { "jp": "sutemasu", "vn": "bỏ" },
-    { "jp": "kaemasu", "vn": "đổi, trao đổi" },
-    { "jp": "untenshimasu", "vn": "lái" },
-    { "jp": "yoyakushimasu", "vn": "đặt chỗ" },
-    { "jp": "piano", "vn": "piano" },
-    { "jp": "-me-toru", "vn": "- mét" },
-    { "jp": "genkin", "vn": "tiền mặt" },
-    { "jp": "shumi", "vn": "sở thích" },
-    { "jp": "nikki", "vn": "nhật ký" },
-    { "jp": "[o]inori", "vn": "việc cầu nguyện" },
-    { "jp": "kachou", "vn": "tổ trưởng" },
-    { "jp": "buchou", "vn": "trưởng phòng" },
-    { "jp": "shachou", "vn": "giám đốc" },
-    { "jp": "doubutsu", "vn": "động vật" },
-    { "jp": "uma", "vn": "ngựa" },
-    { "jp": "inta-netto", "vn": "internet" },
-    { "jp": "tokuni", "vn": "đặc biệt là" },
-    { "jp": "hee", "vn": "thế à! (biểu thị sự ngạc nhiên)" },
-    { "jp": "sorehaomoshiroidesune", "vn": "hay thật nhỉ" },
-    { "jp": "nakanaka", "vn": "khó mà ~, không dễ, mãi mà (dùng với thể phủ định)" },
-    { "jp": "hontoudesuka", "vn": "thật không?" },
-    { "jp": "zehi", "vn": "nhất định" },
-    { "jp": "furusato", "vn": "quê" }
-  ],
-  "lesson19": [
-    { "jp": "noborimasu", "vn": "leo - VD: yama ni noborimasu: leo núi" },
-    { "jp": "tomarimasu", "vn": "trọ, ở lại qua đêm" },
-    { "jp": "soujishimasu", "vn": "dọn vệ sinh" },
-    { "jp": "sentakushimasu", "vn": "giặt" },
-    { "jp": "renshuushimasu", "vn": "luyện tập, thực hành" },
-    { "jp": "narimasu", "vn": "trở thành" },
-    { "jp": "nemui", "vn": "buồn ngủ" },
-    { "jp": "tsuyoi", "vn": "mạnh" },
-    { "jp": "yowai", "vn": "yếu" },
-    { "jp": "gorufu", "vn": "gôn" },
-    { "jp": "sumou", "vn": "vật sumo" },
-    { "jp": "ocha", "vn": "trà (nói chung)" },
-    { "jp": "hi", "vn": "ngày" },
-    { "jp": "choushi", "vn": "tình trạng, trạng thái" },
-    { "jp": "ichido", "vn": "một lần" },
-    { "jp": "ichidomo", "vn": "chưa lần nào" },
-    { "jp": "dandan", "vn": "dần dần" },
-    { "jp": "mousugu", "vn": "sắp" },
-    { "jp": "okagesamade", "vn": "cảm ơn anh/chị (bày tỏ sự biết ơn khi nhận được sự giúp đỡ từ ai đó)" },
-    { "jp": "demo", "vn": "nhưng" },
-    { "jp": "kanpai", "vn": "cụng ly" },
-    { "jp": "daietto", "vn": "việc ăn kiêng, giảm cân" },
-    { "jp": "muri[na]", "vn": "không thể, quá sức" },
-    { "jp": "karadaniii", "vn": "tốt cho sức khỏe" },
-    { "jp": "toukyousukaitsuri", "vn": "tháp truyền hình ở Tokyo" }
-  ],
-  "lesson20": [
-    { "jp": "irimasu", "vn": "cần" },
-    { "jp": "shirabemasu", "vn": "tìm hiểu, điều tra, tra cứu" },
-    { "jp": "shuurishimasu", "vn": "sửa chữa" },
-    { "jp": "boku", "vn": "tớ" },
-    { "jp": "kimi", "vn": "cậu, bạn" },
-    { "jp": "~kun", "vn": "hậu tố thêm vào sau tên em trai" },
-    { "jp": "un", "vn": "ừ (cách nói thân mật của “hai”)" },
-    { "jp": "uun", "vn": "không (cách nói thân mật của “iie”)" },
-    { "jp": "kotoba", "vn": "từ, tiếng, từ ngữ" },
-    { "jp": "kimono", "vn": "kimono" },
-    { "jp": "biza", "vn": "thị thực, visa" },
-    { "jp": "hajime", "vn": "ban đầu, đầu tiên" },
-    { "jp": "owari", "vn": "kết thúc" },
-    { "jp": "kotchi", "vn": "phía này, chỗ này (thân mật của “kochira”)" },
-    { "jp": "sotchi", "vn": "phía đó, chỗ đó" },
-    { "jp": "atchi", "vn": "phía kia, chỗ kia" },
-    { "jp": "dotchi", "vn": "phía nào, chỗ nào, đâu" },
-    { "jp": "minnade", "vn": "mọi người cùng" },
-    { "jp": "~kedo", "vn": "nhưng (cách nói thân mật của “ga”)" },
-    { "jp": "onakagaippaidesu", "vn": "no rồi" },
-    { "jp": "yokattara", "vn": "nếu bạn thích thì" },
-    { "jp": "iroiro", "vn": "nhiều thứ" }
-  ],
-  "lesson21": [
-    { "jp": "omoimasu", "vn": "nghĩ" },
-    { "jp": "iimasu", "vn": "nói" },
-    { "jp": "kachimasu", "vn": "thắng" },
-    { "jp": "makemasu", "vn": "thua" },
-    { "jp": "[omatsuriga~] arimasu", "vn": "được tổ chức, diễn ra, có [lễ hội ~]" },
-    { "jp": "yakunitachimasu", "vn": "giúp ích" },
-    { "jp": "ugokimasu", "vn": "chuyển động, chạy" },
-    { "jp": "yamemasu", "vn": "bỏ, thôi" },
-    { "jp": "kiwotsukemasu", "vn": "chú ý, bảo trọng" },
-    { "jp": "ryuugakushimasu", "vn": "du học" },
-    { "jp": "muda[na]", "vn": "lãng phí, vô ích" },
-    { "jp": "fuben[na]", "vn": "bất tiện" },
-    { "jp": "sugoi", "vn": "tuyệt, ghê" },
-    { "jp": "honto", "vn": "sự thật" },
-    { "jp": "uso", "vn": "giả dối, nói dối" },
-    { "jp": "jidousha", "vn": "ô tô, xe hơi" },
-    { "jp": "koutsuu", "vn": "giao thông" },
-    { "jp": "bukka", "vn": "giá cả, mức giá" },
-    { "jp": "housou", "vn": "phát, phát thanh" },
-    { "jp": "nyu-su", "vn": "tin tức" },
-    { "jp": "anime", "vn": "phim hoạt hình" },
-    { "jp": "manga", "vn": "truyện tranh" },
-    { "jp": "dezain", "vn": "thiết kế" },
-    { "jp": "yume", "vn": "giấc mơ" },
-    { "jp": "tensai", "vn": "thiên tài" },
-    { "jp": "shiai", "vn": "trận đấu" },
-    { "jp": "iken", "vn": "ý kiến" },
-    { "jp": "[o]hanashi", "vn": "câu chuyện, nói chuyện" },
-    { "jp": "chikyuu", "vn": "trái đất" },
-    { "jp": "tsuki", "vn": "mặt trăng" },
-    { "jp": "saikin", "vn": "gần đây" },
-    { "jp": "tabun", "vn": "chắc, có thể" },
-    { "jp": "kitto", "vn": "chắc chắn, nhất định" },
-    { "jp": "hontouni", "vn": "thật là" },
-    { "jp": "sonnani", "vn": "(không)~ lắm" },
-    { "jp": "~nitsuite", "vn": "về ~" },
-    { "jp": "hisashiburidesune", "vn": "đã lâu không gặp" },
-    { "jp": "~demonomimasenka", "vn": "anh/chị uống ~ nhé" },
-    { "jp": "moukaeranaito", "vn": "tôi phải về bây giờ không thì" },
-    { "jp": "mochiron", "vn": "tất nhiên" }
-  ],
-  "lesson22": [
-    { "jp": "kimasu", "vn": "mặc - VD: shatsu o kimasu: mặc áo sơ mi" },
-    { "jp": "hakimasu", "vn": "đi, mặc - VD: kutsu o hakimasu: mang giầy" },
-    { "jp": "kaburimasu", "vn": "đội (mũ)" },
-    { "jp": "[meganewo~] kakemasu", "vn": "đeo [kính]" },
-    { "jp": "nekutai o shimasu", "vn": "đeo cà vạt" },
-    { "jp": "watashitachi", "vn": "chúng ta" },
-    { "jp": "umaremasu", "vn": "sinh ra" },
-    { "jp": "ko-to", "vn": "áo khoác" },
-    { "jp": "su-tsu", "vn": "com-lê, vest" },
-    { "jp": "se-ta-", "vn": "áo len" },
-    { "jp": "boushi", "vn": "mũ" },
-    { "jp": "megane", "vn": "kính" },
-    { "jp": "ke-ki", "vn": "bánh ngọt" },
-    { "jp": "obentou", "vn": "cơm hộp" },
-    { "jp": "robotto", "vn": "robot" },
-    { "jp": "yu-moa", "vn": "sự hài hước" },
-    { "jp": "tsugou", "vn": "sự thích hợp" },
-    { "jp": "yoku", "vn": "thường, hay" },
-    { "jp": "e-to", "vn": "ừ, à" },
-    { "jp": "omedetou gozaimasu", "vn": "chúc mừng" },
-    { "jp": "osagashidesuka", "vn": "anh/chị tìm ~ à?" },
-    { "jp": "deha", "vn": "thế/vậy (nhé)" },
-    { "jp": "kochira", "vn": "đây, cái này (cách nói lịch sự của “kore”)" },
-    { "jp": "yachin", "vn": "tiền thuê nhà" },
-    { "jp": "dainingukichin", "vn": "bếp kèm phòng ăn" },
-    { "jp": "washitsu", "vn": "phòng kiểu Nhật" },
-    { "jp": "oshiire", "vn": "tủ âm tường (để chăn gối đệm kiểu Nhật)" },
-    { "jp": "futon", "vn": "chăn đệm" },
-    { "jp": "pari", "vn": "Pari" },
-    { "jp": "banrinochoujou", "vn": "Vạn Lý Trường Thành" }
-  ],
-  "lesson23": [
-    { "jp": "kikimasu", "vn": "hỏi - VD: sensei ni kikimasu: hỏi giáo viên" },
-    { "jp": "mawashimasu", "vn": "vặn (núm)" },
-    { "jp": "hikimasu", "vn": "kéo ra" },
-    { "jp": "kaemasu", "vn": "đổi" },
-    { "jp": "sawarimasu", "vn": "sờ, chạm vào - VD: doa ni sawarimasu: chạm vào cửa" },
-    { "jp": "demasu", "vn": "xuất hiện, chui ra, ra" },
-    { "jp": "arukimasu", "vn": "đi bộ" },
-    { "jp": "watarimasu", "vn": "qua, đi qua (cầu)" },
-    { "jp": "magarimasu", "vn": "rẽ, quẹo (trái, phải)" },
-    { "jp": "sabishii", "vn": "buồn, cô đơn" },
-    { "jp": "oyu", "vn": "nước nóng" },
-    { "jp": "oto", "vn": "âm thanh" },
-    { "jp": "saizu", "vn": "cỡ, kích thước" },
-    { "jp": "koshou", "vn": "hỏng" },
-    { "jp": "michi", "vn": "con đường" },
-    { "jp": "kousaten", "vn": "ngã tư" },
-    { "jp": "shingou", "vn": "đèn tín hiệu" },
-    { "jp": "kado", "vn": "góc" },
-    { "jp": "hashi", "vn": "cây cầu" },
-    { "jp": "chuushajou", "vn": "bãi đỗ xe" },
-    { "jp": "tatemono", "vn": "tòa nhà" },
-    { "jp": "nankaimo", "vn": "nhiều lần" },
-    { "jp": "~me", "vn": "thứ ~, số ~ (biểu thị thứ tự) - VD: hitotsu me: cái thứ nhất, futatsu me: cái thứ hai)" }
-  ],
-  "lesson24": [
-    { "jp": "kuremasu", "vn": "cho, tặng (tôi)" },
-    { "jp": "naoshimasu", "vn": "chữa, sửa" },
-    { "jp": "tsureteikimasu", "vn": "dẫn đi" },
-    { "jp": "tsuretekimasu", "vn": "dẫn đến" },
-    { "jp": "[hitowo~] okurimasu", "vn": "đưa đi, đưa đến, tiễn [một ai đó]" },
-    { "jp": "shoukaishimasu", "vn": "giới thiệu" },
-    { "jp": "annaishimasu", "vn": "hướng dẫn, dẫn đường" },
-    { "jp": "setsumeishimasu", "vn": "giải thích" },
-    { "jp": "ojiisan", "vn": "ông" },
-    { "jp": "obaasan", "vn": "bà" },
-    { "jp": "junbi", "vn": "chuẩn bị" },
-    { "jp": "hikkoshi", "vn": "sự chuyển nhà" },
-    { "jp": "[o]kashi", "vn": "bánh kẹo" },
-    { "jp": "ho-musutei", "vn": "homestay" },
-    { "jp": "zenbu", "vn": "toàn bộ, tất cả" },
-    { "jp": "jubunde", "vn": "tự (mình)" },
-    { "jp": "hokani", "vn": "ngoài ra, bên cạnh đó" },
-    { "jp": "hahanohi", "vn": "ngày của mẹ" }
-  ],
-  "lesson25": [
-    { "jp": "kangaemasu", "vn": "nghĩ, suy nghĩ" },
-    { "jp": "tsukimasu", "vn": "đến nơi [ga]" },
-    { "jp": "[toshiwo~]torimasu", "vn": "thêm [tuổi]" },
-    { "jp": "tarimasu", "vn": "đủ" },
-    { "jp": "inaka", "vn": "quê, nông thôn" },
-    { "jp": "chansu", "vn": "cơ hội" },
-    { "jp": "oku", "vn": "một trăm triệu" },
-    { "jp": "moshi[~tara]", "vn": "nếu [~thì]" },
-    { "jp": "imi", "vn": "ý nghĩa" },
-    { "jp": "moshimoshi", "vn": "alo" },
-    { "jp": "tenkin", "vn": "việc chuyển địa điểm làm việc" },
-    { "jp": "koto", "vn": "việc" },
-    { "jp": "hima", "vn": "thời gian rảnh" },
-    { "jp": "iroiroosewaninarimashita", "vn": "anh/chị đã giúp tôi nhiều" },
-    { "jp": "ganbarimasu", "vn": "cố gắng, cố" },
-    { "jp": "douzoogenkide", "vn": "chúc bạn mạnh khỏe" },
-    { "jp": "betonamu", "vn": "Việt Nam" }
-  ]
+        { "jp": "tsukemasu", "vn": "bật (điện, máy điều hòa)" },
+        { "jp": "keshimasu", "vn": "tắt (điện, máy điều hòa)" },
+        { "jp": "akemasu", "vn": "mở (cửa, cửa sổ)" },
+        { "jp": "shimemasu", "vn": "đóng (cửa, cửa sổ)" },
+        { "jp": "isogimasu", "vn": "vội, gấp" },
+        { "jp": "machimasu", "vn": "đợi, chờ" },
+        { "jp": "magarimasu", "vn": "rẽ (phải, trái) - VD: migi re magarimasu: rẽ phải" },
+        { "jp": "mochimasu", "vn": "mang, cầm" },
+        { "jp": "torimasu", "vn": "lấy (ví)" },
+        { "jp": "tetsudaimasu", "vn": "giúp (làm việc)" },
+        { "jp": "yobimasu", "vn": "gọi (taxi, tên)" },
+        { "jp": "hanashimasu", "vn": "nói, nói chuyện" },
+        { "jp": "tsukaimasu", "vn": "dùng, sử dụng" },
+        { "jp": "tomemasu", "vn": "dừng, đỗ (ô tô)" },
+        { "jp": "misemasu", "vn": "cho xem, trình" },
+        { "jp": "oshiemasu", "vn": "nói, cho biết" },
+        { "jp": "suwarimasu", "vn": "ngồi" },
+        { "jp": "tachimasu", "vn": "đứng" },
+        { "jp": "hairimasu", "vn": "vào" },
+        { "jp": "demasu", "vn": "ra" },
+        { "jp": "furimasu", "vn": "rơi - VD: ame ga furimasu: mưa rơi, trời mưa" },
+        { "jp": "kopi-shimasu", "vn": "copy" },
+        { "jp": "denki", "vn": "điện, đèn điện" },
+        { "jp": "eakon", "vn": "máy điều hòa" },
+        { "jp": "pasupo-to", "vn": "hộ chiếu" },
+        { "jp": "namae", "vn": "tên" },
+        { "jp": "juusho", "vn": "địa chỉ" },
+        { "jp": "chizu", "vn": "bản đồ" },
+        { "jp": "shio", "vn": "muối" },
+        { "jp": "satou", "vn": "đường" },
+        { "jp": "mondai", "vn": "câu hỏi, vấn đề" },
+        { "jp": "kotae", "vn": "câu trả lời" },
+        { "jp": "yomikata", "vn": "cách đọc" },
+        { "jp": "~kata", "vn": "cách - VD: kaki + kata: cách viết - yomi + kata: cách đọc" },
+        { "jp": "massugu", "vn": "thẳng" },
+        { "jp": "yukkuri", "vn": "chậm, thong thả, thoải mái" },
+        { "jp": "sugu", "vn": "ngay, lập tức" },
+        { "jp": "mata", "vn": "lại (~đến)" },
+        { "jp": "atode", "vn": "sau" },
+        { "jp": "mou sukoshi", "vn": "thêm một chút nữa thôi" },
+        { "jp": "mou~", "vn": "thêm ~" },
+        { "jp": "saa", "vn": "thôi, nào" },
+        { "jp": "are?", "vn": "ô!" },
+        { "jp": "shingou wo migihe magattekudasai", "vn": "a/chị rẽ phải ở chổ đèn tín hiệu" },
+        { "jp": "koredeonegaishimasu", "vn": "gửi anh tiền này" },
+        { "jp": "otsuri", "vn": "tiền thối" }
+      ]
+      ,
+      "lesson15": [
+        { "jp": "okimasu", "vn": "đặt, để" },
+        { "jp": "tsukurimasu", "vn": "làm, chế tạo, sản xuất" },
+        { "jp": "urimasu", "vn": "bán" },
+        { "jp": "shirimasu", "vn": "biết" },
+        { "jp": "sumimasu", "vn": "sống, ở" },
+        { "jp": "kenkyuushimasu", "vn": "nghiên cứu" },
+        { "jp": "shiryou", "vn": "tài liệu, tư liệu" },
+        { "jp": "katarogu", "vn": "cát-ta-lốc" },
+        { "jp": "jikokuhyou", "vn": "bảng giờ tàu chạy" },
+        { "jp": "fuku", "vn": "quần áo" },
+        { "jp": "seihin", "vn": "sản phẩm" },
+        { "jp": "sofuto", "vn": "phần mềm" },
+        { "jp": "denshijisho", "vn": "kim từ điển" },
+        { "jp": "keizai", "vn": "kinh tế" },
+        { "jp": "shiyakusho", "vn": "tòa thị chính" },
+        { "jp": "koukou", "vn": "trường cấp 3" },
+        { "jp": "haisha", "vn": "nha sĩ" },
+        { "jp": "dokushin", "vn": "độc thân" },
+        { "jp": "sumimasen", "vn": "xin lỗi" },
+        { "jp": "minasan", "vn": "các anh chị, các ông bà, các bạn" },
+        { "jp": "omoidasu", "vn": "nhớ lại, hồi tưởng" },
+        { "jp": "irasshaimasu", "vn": "thể kính trọng của 'imasu'" }
+      ],
+      "lesson16": [
+        { "jp": "norimasu", "vn": "đi, lên [tàu] - VD: densha ni norimasu: lên tàu" },
+        { "jp": "orimasu", "vn": "xuống [tàu] - VD: densha o orimasu: xuống tàu" },
+        { "jp": "norikaemasu", "vn": "chuyển, đổi (tàu)" },
+        { "jp": "abimasu", "vn": "tắm" },
+        { "jp": "iremasu", "vn": "cho vào, bỏ vào" },
+        { "jp": "dashimasu", "vn": "lấy ra, rút (tiền)" },
+        { "jp": "oroshimasu", "vn": "rút (tiền)" },
+        { "jp": "hairimasu", "vn": "vào, nhập học" },
+        { "jp": "demasu", "vn": "ra, tốt nghiệp" },
+        { "jp": "oshimasu", "vn": "bấm, ấn (nút)" },
+        { "jp": "nomimasu", "vn": "uống (bia, rượu)" },
+        { "jp": "hajimemasu", "vn": "bắt đầu" },
+        { "jp": "kengakushimasu", "vn": "tham quan kiến tập" },
+        { "jp": "denwashimasu", "vn": "gọi điện thoại" },
+        { "jp": "wakai", "vn": "trẻ" },
+        { "jp": "nagai", "vn": "dài" },
+        { "jp": "mijikai", "vn": "ngắn" },
+        { "jp": "akarui", "vn": "sáng" },
+        { "jp": "kurai", "vn": "tối" },
+        { "jp": "karada", "vn": "người, cơ thể" },
+        { "jp": "atama", "vn": "đầu" },
+        { "jp": "kami", "vn": "tóc" },
+        { "jp": "kao", "vn": "mặt" },
+        { "jp": "me", "vn": "mắt" },
+        { "jp": "mimi", "vn": "tai" },
+        { "jp": "hana", "vn": "mũi" },
+        { "jp": "kuchi", "vn": "miệng" },
+        { "jp": "ha", "vn": "răng" },
+        { "jp": "onaka", "vn": "bụng" },
+        { "jp": "ashi", "vn": "chân" },
+        { "jp": "se", "vn": "chiều cao (cơ thể)" },
+        { "jp": "sa-bisu", "vn": "dịch vụ" },
+        { "jp": "jogingu", "vn": "việc chạy bộ" },
+        { "jp": "shawa-", "vn": "vòi hoa sen" },
+        { "jp": "midori", "vn": "màu xanh lá cây" },
+        { "jp": "[o]tera", "vn": "chùa" },
+        { "jp": "jinja", "vn": "đền thờ đạo thần" },
+        { "jp": "-ban", "vn": "số ~" },
+        { "jp": "douyatte", "vn": "làm thế nào ~" },
+        { "jp": "dono~", "vn": "cái nào ~ (dùng khi từ ba thứ trở lên)" },
+        { "jp": "dore", "vn": "cái nào (dùng khi 3 cái hoặc nhiều hơn)" },
+        { "jp": "sugoi desu ne", "vn": "thật là tuyệt vời" },
+        { "jp": "[iie,] mada mada desu", "vn": "[không], tôi còn kém lắm (khiêm tốn)" },
+        { "jp": "ohikidashidesuka", "vn": "anh/chị rút tiền ạ" },
+        { "jp": "mazu", "vn": "trước hết, trước tiên" },
+        { "jp": "tsugini", "vn": "tiếp theo, sau đó" },
+        { "jp": "kyasshuka-do", "vn": "thẻ ngân hàng" },
+        { "jp": "anshoubangou", "vn": "mã số bí mật (mật khẩu)" },
+        { "jp": "kingaku", "vn": "số tiền, khoản tiền" },
+        { "jp": "kakunin", "vn": "sự xác nhận, sự kiểm tra" },
+        { "jp": "botan", "vn": "nút" },
+        { "jp": "JR", "vn": "công ty đường sắt Nhật Bản" },
+        { "jp": "yukimatsuri", "vn": "lễ hội tuyết" }
+      ]
+      ,
+      "lesson17": [
+        { "jp": "oboemasu", "vn": "nhớ" },
+        { "jp": "nakushimasu", "vn": "mất, đánh mất" },
+        { "jp": "wasuremasu", "vn": "quên" },
+        { "jp": "haraimasu", "vn": "trả tiền" },
+        { "jp": "kaeshimasu", "vn": "trả lại" },
+        { "jp": "dekakemasu", "vn": "ra ngoài" },
+        { "jp": "nugimasu", "vn": "cởi (quần áo, giầy)" },
+        { "jp": "motteikimasu", "vn": "mang đi, mang theo" },
+        { "jp": "mottekimasu", "vn": "mang đến" },
+        { "jp": "shinpaishimasu", "vn": "lo lắng" },
+        { "jp": "zangyoushimasu", "vn": "làm thêm, tăng ca" },
+        { "jp": "shucchoushimasu", "vn": "đi công tác" },
+        { "jp": "nomimasu", "vn": "uống" },
+        { "jp": "hairimasu", "vn": "vào" },
+        { "jp": "taisetsu[na]", "vn": "quan trọng, quý giá" },
+        { "jp": "daijoubu[na]", "vn": "không sao" },
+        { "jp": "abunai", "vn": "nguy hiểm" },
+        { "jp": "kinnen", "vn": "cấm hút thuốc" },
+        { "jp": "[kenkou]hokenshou", "vn": "thẻ bảo hiểm [y tế]" },
+        { "jp": "kaze", "vn": "cảm, cúm" },
+        { "jp": "netsu", "vn": "sốt" },
+        { "jp": "byouki", "vn": "ốm, bệnh" },
+        { "jp": "kusuri", "vn": "thuốc" },
+        { "jp": "[o]furo", "vn": "bồn tắm" },
+        { "jp": "uwagi", "vn": "áo khoác" },
+        { "jp": "shitagi", "vn": "quần áo lót" },
+        { "jp": "2,3nichi", "vn": "vài ngày" },
+        { "jp": "2,3~", "vn": "vài ~ ('~' là hậu tố chỉ cách đếm)" },
+        { "jp": "~madeni", "vn": "trước ~ (chỉ thời hạn)" },
+        { "jp": "desukara", "vn": "vì thế, vì vậy, do đó" },
+        { "jp": "doushimashitaka", "vn": "có vấn đề gì? bạn bị làm sao?" },
+        { "jp": "nodo", "vn": "họng" },
+        { "jp": "~ga itaidesu", "vn": "đau - VD: nodo ga itaidesu: đau họng" },
+        { "jp": "sorekara", "vn": "và, sau đó" },
+        { "jp": "odaijini", "vn": "anh/chị nhớ giữ gìn sức khỏe (nói với những người bị bệnh)" }
+      ],
+      "lesson18": [
+        { "jp": "dekimasu", "vn": "có thể" },
+        { "jp": "araimasu", "vn": "rửa" },
+        { "jp": "hikimasu", "vn": "chơi (nhạc cụ) - VD: piano hikimasu: chơi piano" },
+        { "jp": "utaimasu", "vn": "hát" },
+        { "jp": "atsumemasu", "vn": "sưu tầm" },
+        { "jp": "sutemasu", "vn": "bỏ" },
+        { "jp": "kaemasu", "vn": "đổi, trao đổi" },
+        { "jp": "untenshimasu", "vn": "lái" },
+        { "jp": "yoyakushimasu", "vn": "đặt chỗ" },
+        { "jp": "piano", "vn": "piano" },
+        { "jp": "-me-toru", "vn": "- mét" },
+        { "jp": "genkin", "vn": "tiền mặt" },
+        { "jp": "shumi", "vn": "sở thích" },
+        { "jp": "nikki", "vn": "nhật ký" },
+        { "jp": "[o]inori", "vn": "việc cầu nguyện" },
+        { "jp": "kachou", "vn": "tổ trưởng" },
+        { "jp": "buchou", "vn": "trưởng phòng" },
+        { "jp": "shachou", "vn": "giám đốc" },
+        { "jp": "doubutsu", "vn": "động vật" },
+        { "jp": "uma", "vn": "ngựa" },
+        { "jp": "inta-netto", "vn": "internet" },
+        { "jp": "tokuni", "vn": "đặc biệt là" },
+        { "jp": "hee", "vn": "thế à! (biểu thị sự ngạc nhiên)" },
+        { "jp": "sorehaomoshiroidesune", "vn": "hay thật nhỉ" },
+        { "jp": "nakanaka", "vn": "khó mà ~, không dễ, mãi mà (dùng với thể phủ định)" },
+        { "jp": "hontoudesuka", "vn": "thật không?" },
+        { "jp": "zehi", "vn": "nhất định" },
+        { "jp": "furusato", "vn": "quê" }
+      ],
+      "lesson19": [
+        { "jp": "noborimasu", "vn": "leo - VD: yama ni noborimasu: leo núi" },
+        { "jp": "tomarimasu", "vn": "trọ, ở lại qua đêm" },
+        { "jp": "soujishimasu", "vn": "dọn vệ sinh" },
+        { "jp": "sentakushimasu", "vn": "giặt" },
+        { "jp": "renshuushimasu", "vn": "luyện tập, thực hành" },
+        { "jp": "narimasu", "vn": "trở thành" },
+        { "jp": "nemui", "vn": "buồn ngủ" },
+        { "jp": "tsuyoi", "vn": "mạnh" },
+        { "jp": "yowai", "vn": "yếu" },
+        { "jp": "gorufu", "vn": "gôn" },
+        { "jp": "sumou", "vn": "vật sumo" },
+        { "jp": "ocha", "vn": "trà (nói chung)" },
+        { "jp": "hi", "vn": "ngày" },
+        { "jp": "choushi", "vn": "tình trạng, trạng thái" },
+        { "jp": "ichido", "vn": "một lần" },
+        { "jp": "ichidomo", "vn": "chưa lần nào" },
+        { "jp": "dandan", "vn": "dần dần" },
+        { "jp": "mousugu", "vn": "sắp" },
+        { "jp": "okagesamade", "vn": "cảm ơn anh/chị (bày tỏ sự biết ơn khi nhận được sự giúp đỡ từ ai đó)" },
+        { "jp": "demo", "vn": "nhưng" },
+        { "jp": "kanpai", "vn": "cụng ly" },
+        { "jp": "daietto", "vn": "việc ăn kiêng, giảm cân" },
+        { "jp": "muri[na]", "vn": "không thể, quá sức" },
+        { "jp": "karadaniii", "vn": "tốt cho sức khỏe" },
+        { "jp": "toukyousukaitsuri", "vn": "tháp truyền hình ở Tokyo" }
+      ],
+      "lesson20": [
+        { "jp": "irimasu", "vn": "cần" },
+        { "jp": "shirabemasu", "vn": "tìm hiểu, điều tra, tra cứu" },
+        { "jp": "shuurishimasu", "vn": "sửa chữa" },
+        { "jp": "boku", "vn": "tớ" },
+        { "jp": "kimi", "vn": "cậu, bạn" },
+        { "jp": "~kun", "vn": "hậu tố thêm vào sau tên em trai" },
+        { "jp": "un", "vn": "ừ (cách nói thân mật của “hai”)" },
+        { "jp": "uun", "vn": "không (cách nói thân mật của “iie”)" },
+        { "jp": "kotoba", "vn": "từ, tiếng, từ ngữ" },
+        { "jp": "kimono", "vn": "kimono" },
+        { "jp": "biza", "vn": "thị thực, visa" },
+        { "jp": "hajime", "vn": "ban đầu, đầu tiên" },
+        { "jp": "owari", "vn": "kết thúc" },
+        { "jp": "kotchi", "vn": "phía này, chỗ này (thân mật của “kochira”)" },
+        { "jp": "sotchi", "vn": "phía đó, chỗ đó" },
+        { "jp": "atchi", "vn": "phía kia, chỗ kia" },
+        { "jp": "dotchi", "vn": "phía nào, chỗ nào, đâu" },
+        { "jp": "minnade", "vn": "mọi người cùng" },
+        { "jp": "~kedo", "vn": "nhưng (cách nói thân mật của “ga”)" },
+        { "jp": "onakagaippaidesu", "vn": "no rồi" },
+        { "jp": "yokattara", "vn": "nếu bạn thích thì" },
+        { "jp": "iroiro", "vn": "nhiều thứ" }
+      ],
+      "lesson21": [
+        { "jp": "omoimasu", "vn": "nghĩ" },
+        { "jp": "iimasu", "vn": "nói" },
+        { "jp": "kachimasu", "vn": "thắng" },
+        { "jp": "makemasu", "vn": "thua" },
+        { "jp": "[omatsuriga~] arimasu", "vn": "được tổ chức, diễn ra, có [lễ hội ~]" },
+        { "jp": "yakunitachimasu", "vn": "giúp ích" },
+        { "jp": "ugokimasu", "vn": "chuyển động, chạy" },
+        { "jp": "yamemasu", "vn": "bỏ, thôi" },
+        { "jp": "kiwotsukemasu", "vn": "chú ý, bảo trọng" },
+        { "jp": "ryuugakushimasu", "vn": "du học" },
+        { "jp": "muda[na]", "vn": "lãng phí, vô ích" },
+        { "jp": "fuben[na]", "vn": "bất tiện" },
+        { "jp": "sugoi", "vn": "tuyệt, ghê" },
+        { "jp": "honto", "vn": "sự thật" },
+        { "jp": "uso", "vn": "giả dối, nói dối" },
+        { "jp": "jidousha", "vn": "ô tô, xe hơi" },
+        { "jp": "koutsuu", "vn": "giao thông" },
+        { "jp": "bukka", "vn": "giá cả, mức giá" },
+        { "jp": "housou", "vn": "phát, phát thanh" },
+        { "jp": "nyu-su", "vn": "tin tức" },
+        { "jp": "anime", "vn": "phim hoạt hình" },
+        { "jp": "manga", "vn": "truyện tranh" },
+        { "jp": "dezain", "vn": "thiết kế" },
+        { "jp": "yume", "vn": "giấc mơ" },
+        { "jp": "tensai", "vn": "thiên tài" },
+        { "jp": "shiai", "vn": "trận đấu" },
+        { "jp": "iken", "vn": "ý kiến" },
+        { "jp": "[o]hanashi", "vn": "câu chuyện, nói chuyện" },
+        { "jp": "chikyuu", "vn": "trái đất" },
+        { "jp": "tsuki", "vn": "mặt trăng" },
+        { "jp": "saikin", "vn": "gần đây" },
+        { "jp": "tabun", "vn": "chắc, có thể" },
+        { "jp": "kitto", "vn": "chắc chắn, nhất định" },
+        { "jp": "hontouni", "vn": "thật là" },
+        { "jp": "sonnani", "vn": "(không)~ lắm" },
+        { "jp": "~nitsuite", "vn": "về ~" },
+        { "jp": "hisashiburidesune", "vn": "đã lâu không gặp" },
+        { "jp": "~demonomimasenka", "vn": "anh/chị uống ~ nhé" },
+        { "jp": "moukaeranaito", "vn": "tôi phải về bây giờ không thì" },
+        { "jp": "mochiron", "vn": "tất nhiên" }
+      ],
+      "lesson22": [
+        { "jp": "kimasu", "vn": "mặc - VD: shatsu o kimasu: mặc áo sơ mi" },
+        { "jp": "hakimasu", "vn": "đi, mặc - VD: kutsu o hakimasu: mang giầy" },
+        { "jp": "kaburimasu", "vn": "đội (mũ)" },
+        { "jp": "[meganewo~] kakemasu", "vn": "đeo [kính]" },
+        { "jp": "nekutai o shimasu", "vn": "đeo cà vạt" },
+        { "jp": "watashitachi", "vn": "chúng ta" },
+        { "jp": "umaremasu", "vn": "sinh ra" },
+        { "jp": "ko-to", "vn": "áo khoác" },
+        { "jp": "su-tsu", "vn": "com-lê, vest" },
+        { "jp": "se-ta-", "vn": "áo len" },
+        { "jp": "boushi", "vn": "mũ" },
+        { "jp": "megane", "vn": "kính" },
+        { "jp": "ke-ki", "vn": "bánh ngọt" },
+        { "jp": "obentou", "vn": "cơm hộp" },
+        { "jp": "robotto", "vn": "robot" },
+        { "jp": "yu-moa", "vn": "sự hài hước" },
+        { "jp": "tsugou", "vn": "sự thích hợp" },
+        { "jp": "yoku", "vn": "thường, hay" },
+        { "jp": "e-to", "vn": "ừ, à" },
+        { "jp": "omedetou gozaimasu", "vn": "chúc mừng" },
+        { "jp": "osagashidesuka", "vn": "anh/chị tìm ~ à?" },
+        { "jp": "deha", "vn": "thế/vậy (nhé)" },
+        { "jp": "kochira", "vn": "đây, cái này (cách nói lịch sự của “kore”)" },
+        { "jp": "yachin", "vn": "tiền thuê nhà" },
+        { "jp": "dainingukichin", "vn": "bếp kèm phòng ăn" },
+        { "jp": "washitsu", "vn": "phòng kiểu Nhật" },
+        { "jp": "oshiire", "vn": "tủ âm tường (để chăn gối đệm kiểu Nhật)" },
+        { "jp": "futon", "vn": "chăn đệm" },
+        { "jp": "pari", "vn": "Pari" },
+        { "jp": "banrinochoujou", "vn": "Vạn Lý Trường Thành" }
+      ],
+      "lesson23": [
+        { "jp": "kikimasu", "vn": "hỏi - VD: sensei ni kikimasu: hỏi giáo viên" },
+        { "jp": "mawashimasu", "vn": "vặn (núm)" },
+        { "jp": "hikimasu", "vn": "kéo ra" },
+        { "jp": "kaemasu", "vn": "đổi" },
+        { "jp": "sawarimasu", "vn": "sờ, chạm vào - VD: doa ni sawarimasu: chạm vào cửa" },
+        { "jp": "demasu", "vn": "xuất hiện, chui ra, ra" },
+        { "jp": "arukimasu", "vn": "đi bộ" },
+        { "jp": "watarimasu", "vn": "qua, đi qua (cầu)" },
+        { "jp": "magarimasu", "vn": "rẽ, quẹo (trái, phải)" },
+        { "jp": "sabishii", "vn": "buồn, cô đơn" },
+        { "jp": "oyu", "vn": "nước nóng" },
+        { "jp": "oto", "vn": "âm thanh" },
+        { "jp": "saizu", "vn": "cỡ, kích thước" },
+        { "jp": "koshou", "vn": "hỏng" },
+        { "jp": "michi", "vn": "con đường" },
+        { "jp": "kousaten", "vn": "ngã tư" },
+        { "jp": "shingou", "vn": "đèn tín hiệu" },
+        { "jp": "kado", "vn": "góc" },
+        { "jp": "hashi", "vn": "cây cầu" },
+        { "jp": "chuushajou", "vn": "bãi đỗ xe" },
+        { "jp": "tatemono", "vn": "tòa nhà" },
+        { "jp": "nankaimo", "vn": "nhiều lần" },
+        { "jp": "~me", "vn": "thứ ~, số ~ (biểu thị thứ tự) - VD: hitotsu me: cái thứ nhất, futatsu me: cái thứ hai)" }
+      ],
+      "lesson24": [
+        { "jp": "kuremasu", "vn": "cho, tặng (tôi)" },
+        { "jp": "naoshimasu", "vn": "chữa, sửa" },
+        { "jp": "tsureteikimasu", "vn": "dẫn đi" },
+        { "jp": "tsuretekimasu", "vn": "dẫn đến" },
+        { "jp": "[hitowo~] okurimasu", "vn": "đưa đi, đưa đến, tiễn [một ai đó]" },
+        { "jp": "shoukaishimasu", "vn": "giới thiệu" },
+        { "jp": "annaishimasu", "vn": "hướng dẫn, dẫn đường" },
+        { "jp": "setsumeishimasu", "vn": "giải thích" },
+        { "jp": "ojiisan", "vn": "ông" },
+        { "jp": "obaasan", "vn": "bà" },
+        { "jp": "junbi", "vn": "chuẩn bị" },
+        { "jp": "hikkoshi", "vn": "sự chuyển nhà" },
+        { "jp": "[o]kashi", "vn": "bánh kẹo" },
+        { "jp": "ho-musutei", "vn": "homestay" },
+        { "jp": "zenbu", "vn": "toàn bộ, tất cả" },
+        { "jp": "jubunde", "vn": "tự (mình)" },
+        { "jp": "hokani", "vn": "ngoài ra, bên cạnh đó" },
+        { "jp": "hahanohi", "vn": "ngày của mẹ" }
+      ],
+      "lesson25": [
+        { "jp": "kangaemasu", "vn": "nghĩ, suy nghĩ" },
+        { "jp": "tsukimasu", "vn": "đến nơi [ga]" },
+        { "jp": "[toshiwo~]torimasu", "vn": "thêm [tuổi]" },
+        { "jp": "tarimasu", "vn": "đủ" },
+        { "jp": "inaka", "vn": "quê, nông thôn" },
+        { "jp": "chansu", "vn": "cơ hội" },
+        { "jp": "oku", "vn": "một trăm triệu" },
+        { "jp": "moshi[~tara]", "vn": "nếu [~thì]" },
+        { "jp": "imi", "vn": "ý nghĩa" },
+        { "jp": "moshimoshi", "vn": "alo" },
+        { "jp": "tenkin", "vn": "việc chuyển địa điểm làm việc" },
+        { "jp": "koto", "vn": "việc" },
+        { "jp": "hima", "vn": "thời gian rảnh" },
+        { "jp": "iroiroosewaninarimashita", "vn": "anh/chị đã giúp tôi nhiều" },
+        { "jp": "ganbarimasu", "vn": "cố gắng, cố" },
+        { "jp": "douzoogenkide", "vn": "chúc bạn mạnh khỏe" },
+        { "jp": "betonamu", "vn": "Việt Nam" }
+      ]
     };
 
     let currentLesson = "lesson1";
@@ -1454,9 +1460,10 @@ button:hover {
   </script>
 
   <script type="module">
-  import { lessons } from './lessons.js';
-  // code xử lý ở đây
-</script>
+    import { lessons } from './lessons.js';
+    // code xử lý ở đây
+  </script>
 
 </body>
+
 </html>
