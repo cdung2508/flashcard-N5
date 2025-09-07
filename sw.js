@@ -1,5 +1,5 @@
 const CACHE = "offline-v1";
-const FILES = ["./", "./index.html", "./styles.css", "./app.js"];
+const FILES = ["./", "./index.html"];
 
 
 self.addEventListener("install", e => {
