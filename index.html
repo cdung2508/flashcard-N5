@@ -1335,7 +1335,7 @@
         { "jp": "[o]kashi", "vn": "bánh kẹo" },
         { "jp": "ho-musutei", "vn": "homestay" },
         { "jp": "zenbu", "vn": "toàn bộ, tất cả" },
-        { "jp": "jubunde", "vn": "tự (mình)" },
+        { "jp": "jibunde", "vn": "tự (mình)" },
         { "jp": "hokani", "vn": "ngoài ra, bên cạnh đó" },
         { "jp": "hahanohi", "vn": "ngày của mẹ" }
       ],
@@ -1462,6 +1462,12 @@
   <script type="module">
     import { lessons } from './lessons.js';
     // code xử lý ở đây
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
   </script>
 
 </body>
