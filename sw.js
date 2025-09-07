@@ -1,5 +1,8 @@
 const CACHE = "offline-v1";
-const FILES = ["./", "./index.html"];
+const FILES = [
+  "/flashcard-N5/",
+  "/flashcard-N5/index.html"
+];
 
 
 self.addEventListener("install", e => {
