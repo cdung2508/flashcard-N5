@@ -4,7 +4,7 @@ const FILES = [
   "/flashcard-N5/index.html"
 ];
 
-
+// test
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
 });
