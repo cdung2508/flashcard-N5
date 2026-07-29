@@ -3562,6 +3562,10 @@
     direction.addEventListener("change", renderCard);
 
     renderCard();
+
+    document.addEventListener("dblclick", e => {
+    e.preventDefault();
+});
   </script>
 
   <script>
