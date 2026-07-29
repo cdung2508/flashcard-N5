@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Flashcard Học Từ Vựng</title>
   <style>
     :root {
@@ -16,6 +17,8 @@
     * {
       box-sizing: border-box;
       user-select: none;
+      touch-action: manipulation;
+      -webkit-user-select: none;
     }
 
     body {
@@ -3579,17 +3582,17 @@
 
     let lastTouchEnd = 0;
 
-document.addEventListener(
-    "touchend",
-    function (event) {
+    document.addEventListener(
+      "touchend",
+      function (event) {
         const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
+        if (now - lastTouchEnd <= 100) {
+          event.preventDefault();
         }
         lastTouchEnd = now;
-    },
-    { passive: false }
-);
+      },
+      { passive: false }
+    );
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/flashcard-N5/sw.js')
