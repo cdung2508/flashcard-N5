@@ -253,6 +253,10 @@ body {
     background: var(--mint-bg);
     transform: translateY(-2px);
   }
+
+  .nav-brand-wrapper {
+    display: none !important; /* Ẩn Logo & Badge trên Mobile Bottom Navbar để tiết kiệm diện tích */
+  }
 }
 
 /* ==========================================
