@@ -19,12 +19,8 @@ const STATIC_FILES = [
   './components/navbar.html',
   './components/navbar.js',
   
-  // Dữ liệu từ vựng theo từng Level N1 -> N5
-  './data/N5/vocabulary.js',
-  './data/N4/vocabulary.js',
-  './data/N3/vocabulary.js',
-  './data/N2/vocabulary.js',
-  './data/N1/vocabulary.js'
+  // Dữ liệu từ vựng
+  './data/N5/vocab.js'
 ];
 
 // 1. Cài đặt Service Worker và Cache các file static

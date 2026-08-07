@@ -7,7 +7,7 @@ const VALID_LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1'];
  * Lấy trình độ hiện tại của người dùng
  */
 export function getCurrentLevel() {
-  const savedLevel = localStorage.getItem('userLevel');
+  const savedLevel = localStorage.getItem('currentLevel');
   return VALID_LEVELS.includes(savedLevel) ? savedLevel : DEFAULT_LEVEL;
 }
 
@@ -17,7 +17,7 @@ export function getCurrentLevel() {
 export function setCurrentLevel(newLevel) {
   if (!VALID_LEVELS.includes(newLevel)) return;
   
-  localStorage.setItem('userLevel', newLevel);
+  localStorage.setItem('currentLevel', newLevel);
   
   // Bắn Custom Event để các trang/component đang mở có thể tự cập nhật UI mà không cần reload
   window.dispatchEvent(new CustomEvent('levelChanged', { detail: { level: newLevel } }));
