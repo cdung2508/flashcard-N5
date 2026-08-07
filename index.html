@@ -15,7 +15,44 @@
 
   <div class="main-container">
     <header class="app-header">
-      <div class="logo-badge">🇯🇵 JLPT N5</div>
+      <div class="level-badge" id="openLevelModalBtn">
+        <span class="badge-dot"></span>
+        <span id="currentLevelText">JP JLPT N5</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+
+      <div class="modal-overlay" id="levelModal">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3>Chọn trình độ JLPT</h3>
+            <button class="close-btn" id="closeLevelModalBtn">&times;</button>
+          </div>
+          <div class="level-options">
+            <button class="level-btn" data-level="N5">
+              <span class="level-title">JLPT N5</span>
+              <span class="level-desc">Cơ bản cho người mới bắt đầu</span>
+            </button>
+            <button class="level-btn" data-level="N4">
+              <span class="level-title">JLPT N4</span>
+              <span class="level-desc">Sơ cấp 2</span>
+            </button>
+            <button class="level-btn" data-level="N3">
+              <span class="level-title">JLPT N3</span>
+              <span class="level-desc">Trung cấp</span>
+            </button>
+            <button class="level-btn" data-level="N2">
+              <span class="level-title">JLPT N2</span>
+              <span class="level-desc">Trung - Cao cấp</span>
+            </button>
+            <button class="level-btn" data-level="N1">
+              <span class="level-title">JLPT N1</span>
+              <span class="level-desc">Thành thạo</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
       <h1>Học Tiếng Nhật Cùng Vibe</h1>
       <p class="subtitle">Hệ thống luyện tập toàn diện dành cho người mới bắt đầu</p>
     </header>
@@ -82,6 +119,9 @@
       <p>Chúc bạn học tốt mỗi ngày! ✨</p>
     </footer>
   </div>
+
+
+  <script type="module" src="js/index.js"></script>
 
 </body>
 

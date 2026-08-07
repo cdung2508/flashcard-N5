@@ -107,3 +107,161 @@
   color: #94a3b8;
   font-size: 14px;
 }
+
+/* ==========================================
+   LEVEL SELECTOR & MODAL STYLES
+   ========================================== */
+
+/* 1. Badge Chọn Level ở Trang Chủ */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(209, 250, 229, 0.6); /* Mint nhẹ */
+  color: #047857;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #a7f3d0;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.level-badge:hover {
+  background-color: #d1fae5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.1);
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* 2. Modal Overlay (Nền mờ) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.5); /* Nền tối mờ */
+  backdrop-filter: blur(4px); /* Hiệu ứng mờ đằng sau */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease-in-out;
+}
+
+/* Class active khi bật Modal bằng JS */
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 3. Modal Card Box */
+.modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid #f1f5f9;
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+/* Header Modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color 0.2s, background-color 0.2s;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #0f172a;
+  background-color: #f1f5f9;
+}
+
+/* List Button Chọn Level */
+.level-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.level-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background-color: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.level-btn:hover {
+  border-color: #34d399;
+  background-color: #ecfdf5;
+  transform: translateX(4px);
+}
+
+/* State khi được chọn */
+.level-btn.active {
+  border-color: #059669;
+  background-color: #d1fae5;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.15);
+}
+
+.level-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.level-btn.active .level-title {
+  color: #047857;
+}
+
+.level-desc {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 2px;
+}
