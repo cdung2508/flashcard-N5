@@ -7,12 +7,13 @@ const FILES = [
   "./components/navbar.html",
   "./components/navbar.js",
   "./css/base.css",
-  "./css/navbar.css",
   "./css/index.css",
   "./css/lessons.css",
   "./js/lessons.js",
-  "./data/vocab-data.js"
-];
+  "./js/index.js",
+  "./data/N5/vocab.js",
+  "./utils/helpers.js",
+]
 
 // test
 self.addEventListener("install", e => {
