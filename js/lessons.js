@@ -8,9 +8,6 @@ let isQuizMode = false;
 let correctCount = 0;
 let totalCount = 0;
 
-console.log("HERE", vocabulary)
-console.log("HERE 1", vocab)
-
 const card = document.getElementById("card");
 const frontText = document.getElementById("frontText");
 const backText = document.getElementById("backText");
