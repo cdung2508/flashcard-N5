@@ -1,9 +1,17 @@
 <nav class="app-navbar">
   <div class="navbar-container">
-    <a href="index.html" class="nav-brand">
-      <span class="brand-icon">🇯🇵</span>
-      <span class="brand-text">N5 Vibe App</span>
-    </a>
+    <div class="nav-brand-wrapper">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-icon">🇯🇵</span>
+        <span class="brand-text">Vibe App</span>
+      </a>
+
+      <div class="level-badge" id="openLevelModalBtn" title="Click để chọn trình độ JLPT">
+        <span class="badge-dot"></span>
+        <span id="currentLevelText">JP JLPT N5</span>
+        <span class="badge-arrow">▼</span>
+      </div>
+    </div>
 
     <ul class="nav-links">
       <li>
@@ -39,3 +47,34 @@
     </ul>
   </div>
 </nav>
+
+<div class="modal-overlay" id="levelModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Chọn trình độ JLPT</h3>
+      <button class="close-btn" id="closeLevelModalBtn">&times;</button>
+    </div>
+    <div class="level-options">
+      <button class="level-btn" data-level="N5">
+        <span class="level-title">JLPT N5</span>
+        <span class="level-desc">Cơ bản cho người mới bắt đầu</span>
+      </button>
+      <button class="level-btn" data-level="N4">
+        <span class="level-title">JLPT N4</span>
+        <span class="level-desc">Sơ cấp 2</span>
+      </button>
+      <button class="level-btn" data-level="N3">
+        <span class="level-title">JLPT N3</span>
+        <span class="level-desc">Trung cấp</span>
+      </button>
+      <button class="level-btn" data-level="N2">
+        <span class="level-title">JLPT N2</span>
+        <span class="level-desc">Trung - Cao cấp</span>
+      </button>
+      <button class="level-btn" data-level="N1">
+        <span class="level-title">JLPT N1</span>
+        <span class="level-desc">Thành thạo</span>
+      </button>
+    </div>
+  </div>
+</div>
