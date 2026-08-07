@@ -12,76 +12,81 @@
 
 <body data-page="lessons">
 
-  <h2>📘 Flashcard Từ Vựng Nhật - Việt</h2>
+  <div class="main-container">
+    <header class="page-header">
+      <h1 class="page-title">📘 Flashcard Từ Vựng Nhật - Việt</h1>
+      <p class="page-subtitle">Học từ vựng qua thẻ ghi nhớ kèm ví dụ minh họa & quiz ôn tập</p>
+    </header>
 
-  <div class="top-bar">
-    <select id="lesson">
-      <option value="lesson1">Bài 1</option>
-      <option value="lesson2">Bài 2</option>
-      <option value="lesson3">Bài 3</option>
-      <option value="lesson4">Bài 4</option>
-      <option value="lesson5">Bài 5</option>
-      <option value="lesson6">Bài 6</option>
-      <option value="lesson7">Bài 7</option>
-      <option value="lesson8">Bài 8</option>
-      <option value="lesson9">Bài 9</option>
-      <option value="lesson10">Bài 10</option>
-      <option value="lesson11">Bài 11</option>
-      <option value="lesson12">Bài 12</option>
-      <option value="lesson13">Bài 13</option>
-      <option value="lesson14">Bài 14</option>
-      <option value="lesson15">Bài 15</option>
-      <option value="lesson16">Bài 16</option>
-      <option value="lesson17">Bài 17</option>
-      <option value="lesson18">Bài 18</option>
-      <option value="lesson19">Bài 19</option>
-      <option value="lesson20">Bài 20</option>
-      <option value="lesson21">Bài 21</option>
-      <option value="lesson22">Bài 22</option>
-      <option value="lesson23">Bài 23</option>
-      <option value="lesson24">Bài 24</option>
-      <option value="lesson25">Bài 25</option>
-      <option value="lesson26">Bài 26</option>
-      <option value="lesson27">Bài 27</option>
-      <option value="lesson28">Bài 28</option>
-      <option value="lesson29">Bài 29</option>
-      <option value="lesson30">Bài 30</option>
-    </select>
+    <div class="top-bar">
+      <select id="lesson">
+        <option value="lesson1">Bài 1</option>
+        <option value="lesson2">Bài 2</option>
+        <option value="lesson3">Bài 3</option>
+        <option value="lesson4">Bài 4</option>
+        <option value="lesson5">Bài 5</option>
+        <option value="lesson6">Bài 6</option>
+        <option value="lesson7">Bài 7</option>
+        <option value="lesson8">Bài 8</option>
+        <option value="lesson9">Bài 9</option>
+        <option value="lesson10">Bài 10</option>
+        <option value="lesson11">Bài 11</option>
+        <option value="lesson12">Bài 12</option>
+        <option value="lesson13">Bài 13</option>
+        <option value="lesson14">Bài 14</option>
+        <option value="lesson15">Bài 15</option>
+        <option value="lesson16">Bài 16</option>
+        <option value="lesson17">Bài 17</option>
+        <option value="lesson18">Bài 18</option>
+        <option value="lesson19">Bài 19</option>
+        <option value="lesson20">Bài 20</option>
+        <option value="lesson21">Bài 21</option>
+        <option value="lesson22">Bài 22</option>
+        <option value="lesson23">Bài 23</option>
+        <option value="lesson24">Bài 24</option>
+        <option value="lesson25">Bài 25</option>
+        <option value="lesson26">Bài 26</option>
+        <option value="lesson27">Bài 27</option>
+        <option value="lesson28">Bài 28</option>
+        <option value="lesson29">Bài 29</option>
+        <option value="lesson30">Bài 30</option>
+      </select>
 
-    <select id="direction">
-      <option value="jp-vn">Nhật → Việt</option>
-      <option value="vn-jp">Việt → Nhật</option>
-    </select>
-  </div>
-
-  <div class="card-container" id="cardContainer">
-  <div class="card" id="card">
-    <div class="front" id="frontText">Bấm để xem nghĩa</div>
-    <div class="back" id="backText">...</div>
-  </div>
-</div>
-
-  <div id="quizArea" style="display: none;">
-  <input type="text" id="quizInput" placeholder="Nhập nghĩa...">
-  <br><br>
-  <button id="btnCheckAnswer" style="width: 100%;">Kiểm tra</button>
-  <div id="feedback"></div>
-  <div id="summary"></div>
-</div>
-
-  <div class="controls">
-  <button id="btnPrev">⬅ Trước</button>
-  <button id="btnNext">Tiếp ➡</button>
-</div>
-
-  <div id="exampleBox" class="example-box" style="display:none;">
-    <div class="example-header">
-      📝 Ví dụ
+      <select id="direction">
+        <option value="jp-vn">Nhật → Việt</option>
+        <option value="vn-jp">Việt → Nhật</option>
+      </select>
     </div>
 
-    <div class="example-content">
-      <div id="exampleJp"></div>
-      <div id="exampleVn"></div>
+    <div class="card-container" id="cardContainer">
+      <div class="card" id="card">
+        <div class="front" id="frontText">Bấm để xem nghĩa</div>
+        <div class="back" id="backText">...</div>
+      </div>
+    </div>
+
+    <div id="quizArea" style="display: none;">
+      <input type="text" id="quizInput" placeholder="Nhập nghĩa...">
+      <br><br>
+      <button id="btnCheckAnswer" style="width: 100%;">Kiểm tra</button>
+      <div id="feedback"></div>
+      <div id="summary"></div>
+    </div>
+
+    <div class="controls">
+      <button id="btnPrev">⬅ Trước</button>
+      <button id="btnNext">Tiếp ➡</button>
+    </div>
+
+    <div id="exampleBox" class="example-box" style="display:none;">
+      <div class="example-header">
+        📝 Ví dụ
+      </div>
+
+      <div class="example-content">
+        <div id="exampleJp"></div>
+        <div id="exampleVn"></div>
+      </div>
     </div>
   </div>
 

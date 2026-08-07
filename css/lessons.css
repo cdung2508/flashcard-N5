@@ -1,10 +1,5 @@
 /* ==================== FLASHCARD LESSONS ==================== */
-h2 {
-  text-align: center;
-  color: var(--text-title);
-  margin-top: 24px;
-  font-size: 22px;
-}
+
 
 .top-bar {
   display: flex;
