@@ -1,7 +1,10 @@
+JavaScript
 const CACHE = "offline-v1";
 const FILES = [
   "/flashcard-N5/",
-  "/flashcard-N5/index.html"
+  "/flashcard-N5/index.html",
+  "/flashcard-N5/index.js",
+  "/flashcard-N5/lessons.js"
 ];
 
 // test
