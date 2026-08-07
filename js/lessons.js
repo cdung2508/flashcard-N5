@@ -1,4 +1,4 @@
-import { vocabulary  } from "./vocab.js";
+import { vocabulary  } from "/data/N5/vocab.js";
 
 let currentLesson = "lesson1";
 let vocab = shuffle(vocabulary[currentLesson]);
