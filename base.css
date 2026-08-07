@@ -1,0 +1,64 @@
+/* ==================== BASE & VARIABLES ==================== */
+:root {
+  /* Tông màu chủ đạo */
+  --bg-color: #f0f6ff;
+  --grid-color: rgba(203, 213, 225, 0.45);
+  
+  --mint-bg: #d1fae5;
+  --mint-hover: #bbf7d0;
+  --mint-border: #a7f3d0;
+  --mint-text: #047857;
+  
+  --surface: #ffffff;
+  --text-title: #1e293b;
+  --text-main: #334155;
+  --border-color: #e2e8f0;
+  
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  
+  --radius-pill: 9999px;
+  --radius-card: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  background-image: 
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* Nút bấm dùng chung */
+button {
+  background: var(--mint-bg);
+  color: var(--mint-text);
+  border: 1px solid var(--mint-border);
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: var(--mint-hover);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
