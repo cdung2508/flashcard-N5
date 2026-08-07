@@ -1,27 +1,76 @@
-JavaScript
-const CACHE = "offline-v2";
-const FILES = [
-  "./",
-  "./index.html",
-  "./lessons.html",
-  "./components/navbar.html",
-  "./components/navbar.js",
-  "./css/base.css",
-  "./css/index.css",
-  "./css/lessons.css",
-  "./js/lessons.js",
-  "./js/index.js",
-  "./data/N5/vocab.js",
-  "./utils/helpers.js",
-]
+// sw.js
+const CACHE_NAME = 'nihongo-v2'; // Đổi version cache để trình duyệt cập nhật lại
 
-// test
-self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
+// Danh sách tất cả file cần lưu vào Cache để chạy Offline
+const STATIC_FILES = [
+  './',
+  './index.html',
+  './lessons.html',
+  
+  // File CSS
+  './css/index.css',
+  './css/lessons.css',
+  
+  // File JS Logic
+  './js/index.js',
+  './js/lessons.js',
+  
+  // Component dùng chung
+  './components/navbar.html',
+  './components/navbar.js',
+  
+  // Dữ liệu từ vựng theo từng Level N1 -> N5
+  './data/N5/vocabulary.js',
+  './data/N4/vocabulary.js',
+  './data/N3/vocabulary.js',
+  './data/N2/vocabulary.js',
+  './data/N1/vocabulary.js'
+];
+
+// 1. Cài đặt Service Worker và Cache các file static
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[Service Worker] Caching all static files');
+      return cache.addAll(STATIC_FILES);
+    })
+  );
+  self.skipWaiting(); // Kích hoạt ngay lập tức
 });
 
-self.addEventListener("fetch", e => {
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+// 2. Dọn dẹp Cache cũ khi update version mới
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache !== CACHE_NAME) {
+            console.log('[Service Worker] Deleting old cache:', cache);
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+// 3. Xử lý Fetch request (Cache First Strategy - Lấy từ cache trước, nếu không có mới gọi mạng)
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request).then((networkResponse) => {
+        // Tùy chọn: Tự động lưu bổ sung các tài nguyên mới gọi vào cache
+        return networkResponse;
+      });
+    }).catch(() => {
+      // Trả về trang chủ/fallback nếu mất mạng hoàn toàn và không có trong cache
+      if (event.request.mode === 'navigate') {
+        return caches.match('./index.html');
+      }
+    })
   );
 });
