@@ -1,6 +1,6 @@
 async function loadNavbar(activePage) {
   try {
-    const response = await fetch('navbar.html');
+    const response = await fetch('components/navbar.html');
     const navbarHtml = await response.text();
     
     // Chèn HTML vào vị trí mong muốn (đầu <body>)

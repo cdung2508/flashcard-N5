@@ -1,14 +1,17 @@
 JavaScript
-const CACHE = "offline-v1";
+const CACHE = "offline-v2";
 const FILES = [
-  "/flashcard-N5/",
-  "/flashcard-N5/index.html",
-  "/flashcard-N5/lessons.html",
-  "/flashcard-N5/base.css",
-  "/flashcard-N5/index.css",
-  "/flashcard-N5/lessons.css",
-  "/flashcard-N5/index.js",
-  "/flashcard-N5/lessons.js"
+  "./",
+  "./index.html",
+  "./lessons.html",
+  "./components/navbar.html",
+  "./components/navbar.js",
+  "./css/base.css",
+  "./css/navbar.css",
+  "./css/index.css",
+  "./css/lessons.css",
+  "./js/lessons.js",
+  "./data/vocab-data.js"
 ];
 
 // test

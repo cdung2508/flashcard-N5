@@ -1,7 +1,7 @@
-import { lessons } from "./lessons.js";
+import { vocabulary  } from "./vocab.js";
 
 let currentLesson = "lesson1";
-let vocab = shuffle(lessons[currentLesson]);
+let vocab = shuffle(vocabulary[currentLesson]);
 let index = 0;
 let flipped = false;
 let isQuizMode = false;
@@ -70,7 +70,7 @@ function prevCard() {
 
 function changeLesson() {
   currentLesson = document.getElementById("lesson").value;
-  vocab = shuffle(lessons[currentLesson]);
+  vocab = shuffle(vocab[currentLesson]);
   index = 0;
   renderCard();
 }
@@ -81,7 +81,7 @@ function toggleMode() {
   quizArea.style.display = isQuizMode ? "block" : "none";
   correctCount = 0;
   totalCount = 0;
-  vocab = shuffle(lessons[currentLesson]);
+  vocab = shuffle(vocab[currentLesson]);
   index = 0;
   renderCard();
 }
