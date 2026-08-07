@@ -19,15 +19,20 @@ function getValidLevel() {
 function initLevelSelector() {
   const levelModal = document.getElementById('levelModal');
   const openModalBtn = document.getElementById('openLevelModalBtn');
+  const mobileFabBtn = document.getElementById('mobileLevelFabBtn'); // MỚI
   const closeModalBtn = document.getElementById('closeLevelModalBtn');
   const currentLevelText = document.getElementById('currentLevelText');
+  const mobileFabText = document.getElementById('mobileLevelFabText'); // MỚI
   const levelBtns = document.querySelectorAll('.level-btn');
 
   function updateUILevel(level) {
     if (currentLevelText) {
       currentLevelText.textContent = `JP JLPT ${level}`;
     }
-    
+    if (mobileFabText) {
+      mobileFabText.textContent = level; // MỚI: đồng bộ chữ trên FAB
+    }
+
     levelBtns.forEach(btn => {
       if (btn.dataset.level === level) {
         btn.classList.add('active');
@@ -51,8 +56,9 @@ function initLevelSelector() {
 
   // Gán sự kiện mở/đóng modal
   if (openModalBtn) openModalBtn.addEventListener('click', openModal);
+  if (mobileFabBtn) mobileFabBtn.addEventListener('click', openModal); // MỚI
   if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-  
+
   if (levelModal) {
     levelModal.addEventListener('click', (e) => {
       if (e.target === levelModal) closeModal();
@@ -63,13 +69,12 @@ function initLevelSelector() {
   levelBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const selectedLevel = btn.dataset.level;
-      
+
       if (VALID_LEVELS.includes(selectedLevel)) {
         localStorage.setItem('currentLevel', selectedLevel);
         updateUILevel(selectedLevel);
         closeModal();
 
-        // Phát Custom Event cho các trang khác re-render nếu cần
         window.dispatchEvent(new CustomEvent('levelChanged', { detail: { level: selectedLevel } }));
       }
     });
