@@ -51,7 +51,7 @@ async function loadVocabulary(level) {
     }
 
     // Lấy object vocabulary từ module (hỗ trợ cả vocabularyN5 và vocabularyN4)
-    vocabulary = module.vocabularyN5 || module.vocabularyN4 || module.vocabulary || {};
+    vocabulary =  module.vocabulary || {};
     return vocabulary;
   } catch (err) {
     console.error(`Không thể load vocab cho ${level}:`, err);

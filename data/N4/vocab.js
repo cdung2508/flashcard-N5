@@ -1,4 +1,4 @@
-export const vocabularyN4 = {
+export const vocabulary = {
     "lesson1": [
         {
             "jp": "みます",
