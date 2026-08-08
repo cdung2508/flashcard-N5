@@ -1,7 +1,9 @@
-import { vocabulary } from "../data/N5/vocab.js";
+// Dynamic vocab loading theo cấp độ JLPT
 
-let currentLesson = "lesson1";
-let vocab = shuffle(vocabulary[currentLesson] || []);
+let currentLevel = localStorage.getItem('currentLevel') || 'N5';
+let currentLesson = "";
+let vocabulary = {};
+let vocab = [];
 let index = 0;
 let flipped = false;
 let isQuizMode = false;
@@ -20,6 +22,7 @@ const direction = document.getElementById("direction");
 const exampleBox = document.getElementById("exampleBox");
 const exampleJp = document.getElementById("exampleJp");
 const exampleVn = document.getElementById("exampleVn");
+const lessonSelectEl = document.getElementById("lesson");
 
 function shuffle(array) {
   if (!array || !Array.isArray(array)) return [];
@@ -29,6 +32,66 @@ function shuffle(array) {
     [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
   }
   return newArray;
+}
+
+/**
+ * Load vocab data theo cấp độ JLPT (dynamic import)
+ */
+async function loadVocabulary(level) {
+  try {
+    let module;
+    switch (level) {
+      case 'N4':
+        module = await import("../data/N4/vocab.js");
+        break;
+      case 'N5':
+      default:
+        module = await import("../data/N5/vocab.js");
+        break;
+    }
+
+    // Lấy object vocabulary từ module (hỗ trợ cả vocabularyN5 và vocabularyN4)
+    vocabulary = module.vocabularyN5 || module.vocabularyN4 || module.vocabulary || {};
+    return vocabulary;
+  } catch (err) {
+    console.error(`Không thể load vocab cho ${level}:`, err);
+    vocabulary = {};
+    return vocabulary;
+  }
+}
+
+/**
+ * Cập nhật dropdown bài học dựa trên dữ liệu đã load
+ */
+function populateLessonDropdown() {
+  if (!lessonSelectEl) return;
+
+  // Xóa hết option cũ
+  lessonSelectEl.innerHTML = "";
+
+  // Lấy danh sách lesson keys từ vocabulary đã load
+  const lessonKeys = Object.keys(vocabulary);
+  if (lessonKeys.length === 0) return;
+
+  // Sắp xếp theo số thứ tự bài
+  lessonKeys.sort((a, b) => {
+    const numA = parseInt(a.replace('lesson', ''));
+    const numB = parseInt(b.replace('lesson', ''));
+    return numA - numB;
+  });
+
+  // Thêm option mới
+  lessonKeys.forEach(key => {
+    const num = key.replace('lesson', '');
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = `Bài ${num}`;
+    lessonSelectEl.appendChild(option);
+  });
+
+  // Mặc định chọn bài đầu tiên
+  currentLesson = lessonKeys[0];
+  lessonSelectEl.value = currentLesson;
 }
 
 function renderCard() {
@@ -82,9 +145,8 @@ function prevCard() {
 }
 
 function changeLesson() {
-  const lessonSelect = document.getElementById("lesson");
-  if (lessonSelect) {
-    currentLesson = lessonSelect.value;
+  if (lessonSelectEl) {
+    currentLesson = lessonSelectEl.value;
   }
   const lessonData = vocabulary[currentLesson] || [];
   vocab = shuffle(lessonData);
@@ -124,8 +186,17 @@ function checkAnswer() {
   summary.innerText = `Đúng ${correctCount}/${totalCount}`;
 }
 
+/**
+ * Đổi cấp độ: load vocab mới + cập nhật dropdown + load bài đầu tiên
+ */
+async function handleLevelChange(level) {
+  currentLevel = level;
+  await loadVocabulary(level);
+  populateLessonDropdown();
+  changeLesson();
+}
+
 // Gán sự kiện
-const lessonSelectEl = document.getElementById("lesson");
 if (lessonSelectEl) {
   lessonSelectEl.addEventListener("change", changeLesson);
 }
@@ -159,8 +230,19 @@ if (btnNextEl) {
   btnNextEl.addEventListener("click", nextCard);
 }
 
-// Khởi chạy hiển thị thẻ đầu tiên
-renderCard();
+// Lắng nghe sự kiện đổi cấp độ từ navbar
+window.addEventListener('levelChanged', (e) => {
+  handleLevelChange(e.detail.level);
+});
+
+// Khởi chạy: load vocab theo cấp độ hiện tại + hiển thị
+async function init() {
+  await loadVocabulary(currentLevel);
+  populateLessonDropdown();
+  changeLesson();
+}
+
+init();
 
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
