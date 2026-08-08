@@ -58,14 +58,14 @@ select {
 }
 
 .front {
-  color: var(--text-title);
+  color: var(--mint-text);
+  background: #f0fdf4;
+  border-color: var(--mint-border);
 }
 
 .back {
   transform: rotateY(180deg);
-  color: var(--mint-text);
-  background: #f0fdf4;
-  border-color: var(--mint-border);
+  color: var(--text-title);
 }
 
 .controls {
